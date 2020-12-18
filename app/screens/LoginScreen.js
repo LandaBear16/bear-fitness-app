@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet } from 'react-native'
 import * as Yup from 'yup'
+import { firebase } from '../firebase/config'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
-import colours from '../config/colours'
+import SubmitButton from '../components/form/SubmitButton'
 import Screen from '../components/Screen'
 
 const validationSchema = Yup.object().shape({
@@ -14,14 +15,45 @@ const validationSchema = Yup.object().shape({
 
 const LoginScreen = () => {
 
+  const onLoginPress = ({ email, password }) => {
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((response) => {
+
+            const uid = response.user.uid
+            const usersRef = firebase.firestore().collection('users')
+            usersRef
+                .doc(uid)
+                .get()
+                .then(firestoreDocument => {
+
+                    if (!firestoreDocument.exists) {
+                        alert("User does not exist anymore.")
+                        return;
+                    }
+                    const user = firestoreDocument.data()
+                    console.log("user logged in", user)
+                    // navigation.navigate('Home', {user})
+                })
+                .catch(error => {
+                    console.log('error', error)
+                    alert(error)
+                });
+        })
+        .catch(error => {
+            alert(error)
+        })
+}
+
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <AppForm
         initialValues={{
           email: '',
           password: ''
         }}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => onLoginPress(values)}
         validationSchema={validationSchema}
       >
         <AppFormField
@@ -42,6 +74,7 @@ const LoginScreen = () => {
           secureTextEntry
           textContentType='password'
         />
+        <SubmitButton title='Login' />
       </AppForm>
     </Screen>
   )
@@ -49,12 +82,7 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colours.light,
-    borderRadius: 25,
-    flexDirection: 'row',
-    width: '100%',
-    padding: 15,
-    marginVertical: 10
+    padding: 10
   },
 })
 export default LoginScreen
