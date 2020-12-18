@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
-import { StyleSheet, Image, TextInput, Text, View } from 'react-native'
+import React from 'react';
+import { StyleSheet } from 'react-native'
 
 import AppForm from '../components/form/AppForm'
+import AppFormField from '../components/AppFormField'
 import colours from '../config/colours'
 import Screen from '../components/Screen'
 
 const LoginScreen = () => {
-  const [email, onChangeEmail] = useState('Email');
-  const [password, onChangePassword] = useState('Password');
 
   return (
     <Screen>
       <AppForm>
-      <View style={styles.container}>
-        <TextInput
-          onChangeText={text => onChangeEmail(text)}
-          value={email}
+        <AppFormField
+          autoCapitalize='none'
+          autoCorrect={false} 
+          icon='email'
+          keyboardType='email-address'
+          name='email'
+          placeholder='Email'
+          textContentType='emailAddress'
         />
-      </View>
-      <View>
-        <TextInput 
-          onChangeText={text => onChangePassword(text)}
-          value={password}/>
-      </View>
+        <AppFormField 
+          autoCapitalize='none'
+          autoCorrect={false}
+          icon='lock'
+          name='password'
+          placeholder='Password'
+          secureTextEntry
+          textContentType='password'
+        />
       </AppForm>
     </Screen>
   )
