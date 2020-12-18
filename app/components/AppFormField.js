@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import { useFormikContext } from 'formik'
 
 import AppTextInput from './AppTextInput'
-import defaultStyles from '../config/defaultStyles'
+import ErrorMessage from './form/ErrorMessage'
 
 function AppFormField({ name, ...otherProps }) {
 
@@ -16,7 +16,7 @@ function AppFormField({ name, ...otherProps }) {
         onChangeText={handleChange(name)}
         {...otherProps}
       />
-      <Text style={defaultStyles.text}>{errors[name]}</Text>
+      <ErrorMessage error={errors[name]} visible={touched[name]} />
     </>
   );
 }

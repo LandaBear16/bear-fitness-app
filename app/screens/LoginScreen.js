@@ -1,16 +1,29 @@
 import React from 'react';
 import { StyleSheet } from 'react-native'
+import * as Yup from 'yup'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
 import colours from '../config/colours'
 import Screen from '../components/Screen'
 
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label('Email'),
+  password: Yup.string().required().min(4).label('Password')
+})
+
 const LoginScreen = () => {
 
   return (
     <Screen>
-      <AppForm>
+      <AppForm
+        initialValues={{
+          email: '',
+          password: ''
+        }}
+        onSubmit={values => console.log(values)}
+        validationSchema={validationSchema}
+      >
         <AppFormField
           autoCapitalize='none'
           autoCorrect={false} 
