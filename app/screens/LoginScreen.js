@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet } from 'react-native'
+import React, { useState } from 'react';
+import { StyleSheet, Text } from 'react-native'
 import * as Yup from 'yup'
 import { firebase } from '../firebase/config'
 
@@ -14,6 +14,7 @@ const validationSchema = Yup.object().shape({
 })
 
 const LoginScreen = () => {
+  const [message, setMessage] = useState("")
 
   const onLoginPress = ({ email, password }) => {
     firebase
@@ -33,11 +34,11 @@ const LoginScreen = () => {
                         return;
                     }
                     const user = firestoreDocument.data()
-                    console.log("user logged in", user)
-                    // navigation.navigate('Home', {user})
+                    setMessage("User logged in succesfully")
                 })
                 .catch(error => {
                     console.log('error', error)
+                    setMessage("User Not logged in")
                     alert(error)
                 });
         })
@@ -76,6 +77,7 @@ const LoginScreen = () => {
         />
         <SubmitButton title='Login' />
       </AppForm>
+      <Text>{message}</Text>
     </Screen>
   )
 }

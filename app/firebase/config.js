@@ -16,6 +16,7 @@ var firebaseConfig = {
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
+firebase.auth.Auth.Persistence.SESSION
 
 export { firebase };
 

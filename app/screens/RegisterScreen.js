@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native'
 import * as Yup from 'yup'
+import { firebase } from '../firebase/config'
 
 
 import AppForm from '../components/form/AppForm'
@@ -15,15 +16,42 @@ const validationSchema = Yup.object().shape({
 })
 
 const RegisterScreen = (props) => {
+  const onRegisterPress = ({ email, password, fullName }) => {
+    
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((response) => {
+            const uid = response.user.uid
+            const data = {
+                id: uid,
+                email,
+                fullName,
+            };
+            const usersRef = firebase.firestore().collection('users')
+            usersRef
+                .doc(uid)
+                .set(data)
+                .then(() => {
+                  console.log('user registered', data)
+                })
+                .catch((error) => {
+                    alert(error)
+                });
+        })
+        .catch((error) => {
+            alert(error)
+    });
+}
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{
-          name: '',
+          fullName: '',
           email: '',
           password: ''
         }}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => onRegisterPress(values)}
         validationSchema={validationSchema}
       >
         <AppFormField
@@ -31,7 +59,7 @@ const RegisterScreen = (props) => {
           autoCorrect={false} 
           icon='account'
           keyboardType='default'
-          name='name'
+          name='fullName'
           placeholder='Name'
         />
         <AppFormField
