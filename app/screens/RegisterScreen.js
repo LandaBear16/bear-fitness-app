@@ -1,62 +1,67 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text } from 'react-native'
+import React from 'react';
+import { StyleSheet, Image } from 'react-native'
 import * as Yup from 'yup'
 import { firebase } from '../firebase/config'
+
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
 import SubmitButton from '../components/form/SubmitButton'
-import Screen from '../components/Screen'
+import Screen from '../components/Screen';
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
   password: Yup.string().required().min(4).label('Password')
 })
 
-const LoginScreen = () => {
-  const [message, setMessage] = useState("")
-
-  const onLoginPress = ({ email, password }) => {
+const RegisterScreen = (props) => {
+  const onRegisterPress = ({ email, password, fullName }) => {
+    
     firebase
         .auth()
-        .signInWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(email, password)
         .then((response) => {
-
             const uid = response.user.uid
+            const data = {
+                id: uid,
+                email,
+                fullName,
+            };
             const usersRef = firebase.firestore().collection('users')
             usersRef
                 .doc(uid)
-                .get()
-                .then(firestoreDocument => {
-
-                    if (!firestoreDocument.exists) {
-                        alert("User does not exist anymore.")
-                        return;
-                    }
-                    const user = firestoreDocument.data()
-                    setMessage("User logged in succesfully")
+                .set(data)
+                .then(() => {
+                  console.log('user registered', data)
                 })
-                .catch(error => {
-                    console.log('error', error)
-                    setMessage("User Not logged in")
+                .catch((error) => {
                     alert(error)
                 });
         })
-        .catch(error => {
+        .catch((error) => {
             alert(error)
-        })
+    });
 }
-
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{
+          fullName: '',
           email: '',
           password: ''
         }}
-        onSubmit={values => onLoginPress(values)}
+        onSubmit={values => onRegisterPress(values)}
         validationSchema={validationSchema}
       >
+        <AppFormField
+          autoCapitalize='none'
+          autoCorrect={false} 
+          icon='account'
+          keyboardType='default'
+          name='fullName'
+          placeholder='Name'
+        />
         <AppFormField
           autoCapitalize='none'
           autoCorrect={false} 
@@ -75,11 +80,12 @@ const LoginScreen = () => {
           secureTextEntry
           textContentType='password'
         />
-        <SubmitButton title='Login' />
+        <SubmitButton title='Register' />
+        
       </AppForm>
-      <Text>{message}</Text>
+
     </Screen>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -87,4 +93,5 @@ const styles = StyleSheet.create({
     padding: 10
   },
 })
-export default LoginScreen
+
+export default RegisterScreen;
