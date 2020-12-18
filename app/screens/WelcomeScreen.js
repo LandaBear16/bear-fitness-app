@@ -1,6 +1,7 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View, Image } from "react-native";
+import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
 
+import AppButton from '../components/AppButton'
 import Screen from "../components/Screen";
 
 function WelcomeScreen(props) {
@@ -12,6 +13,10 @@ function WelcomeScreen(props) {
     <Screen style={styles.screen}>
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/bearFitness.png")} />
+      </View>
+      <View style={styles.buttonsContainer}>
+        <AppButton title="Sign In" />
+        <AppButton title="Register" colour="secondary" />
       </View>
     </Screen>
       
