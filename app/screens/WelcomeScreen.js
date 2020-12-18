@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View, Image, Text } from "react-native";
+import { ImageBackground, StyleSheet, View, Image } from "react-native";
 
 import AppButton from '../components/AppButton'
 import Screen from "../components/Screen";
