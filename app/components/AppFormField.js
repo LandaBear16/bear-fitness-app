@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
+import { Text } from 'react-native'
 import { useFormikContext } from 'formik'
 
 import AppTextInput from './AppTextInput'
+import defaultStyles from '../config/defaultStyles'
 
 function AppFormField({ name, ...otherProps }) {
 
-  const {setFieldTouched, handleChange} = useFormikContext()
+  const {setFieldTouched, handleChange, errors, touched} = useFormikContext()
 
   return (
     <>
@@ -14,6 +16,7 @@ function AppFormField({ name, ...otherProps }) {
         onChangeText={handleChange(name)}
         {...otherProps}
       />
+      <Text style={defaultStyles.text}>{errors[name]}</Text>
     </>
   );
 }
