@@ -30,14 +30,13 @@ const TrainingGoal = () => {
   return (
     <Screen>
       <View style={styles.container}>
-        <Text style={{ ...defaultStyles.text }}>Training Goal</Text>
-        <AppButton title='Muscle Gains' onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)}/>
+        <AppButton title='Muscle Gains' onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)} marginVertical={30}/>
 
-        <AppButton title='Fat Loss' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.TWO)} colour={activeButton(NUMBERS.TWO)} textColour={activeText(NUMBERS.TWO)}/>
+        <AppButton title='Fat Loss' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.TWO)} colour={activeButton(NUMBERS.TWO)} textColour={activeText(NUMBERS.TWO)} marginVertical={30}/>
 
-        <AppButton title='Strength' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.THREE)} colour={activeButton(NUMBERS.THREE)} textColour={activeText(NUMBERS.THREE)}/>
+        <AppButton title='Strength' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.THREE)} colour={activeButton(NUMBERS.THREE)} textColour={activeText(NUMBERS.THREE)} marginVertical={30}/>
 
-        <AppButton title='Conditioning' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.FOUR)} colour={activeButton(NUMBERS.FOUR)} textColour={activeText(NUMBERS.FOUR)}/>
+        <AppButton title='Conditioning' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.FOUR)} colour={activeButton(NUMBERS.FOUR)} textColour={activeText(NUMBERS.FOUR)} marginVertical={30}/>
       </View>
     </Screen>
   )
@@ -45,7 +44,8 @@ const TrainingGoal = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30
+    marginTop: 50,
+    paddingHorizontal: 20
   },
   activeButton: {
     backgroundColor: colours.plight,
