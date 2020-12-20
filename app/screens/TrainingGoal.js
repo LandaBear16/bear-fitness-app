@@ -1,6 +1,8 @@
+import * as NUMBERS from '../common/constants/numbers'
 import React, { useState } from 'react'
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
 
+import AppButton from '../components/AppButton' 
 import Screen from '../components/Screen'
 import colours from '../config/colours'
 import defaultStyles from '../config/defaultStyles'
@@ -10,11 +12,17 @@ const TrainingGoal = () => {
   const [selected, setSelected] = useState(null)
 
   const handleSelected = (flag, button) => {
+    console.log('flag', flag)
     setSelected(flag)
   }
 
   const activeButton = (key) => {
-    return selected === key ? styles.activeButton : ''
+    console.log('colour ', selected === key ? 'plight' : 'primary')
+    return selected === key ? 'plight' : 'primary'
+  }
+
+  const activeText = (key) => {
+    return selected === key ? 'primary' : 'plight'
   }
 
   console.log('value', selected)
@@ -23,30 +31,13 @@ const TrainingGoal = () => {
     <Screen>
       <View style={styles.container}>
         <Text style={{ ...defaultStyles.text }}>Training Goal</Text>
-        <TouchableOpacity
-          style={[styles.button, activeButton('1')]}
-          onPress={() => handleSelected('1')}
-          underlayColor="red">
-          <Text style={[styles.buttonText]}>Muscle Gains</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, activeButton('2')]}
-          onPress={() => handleSelected('2')}
-          underlayColor='#fff'>
-          <Text style={styles.buttonText}>Fat Loss</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, activeButton('3')]}
-          onPress={() => handleSelected('3')}
-          underlayColor='#fff'>
-          <Text style={styles.buttonText}>Strength</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, activeButton('4')]}
-          onPress={() => handleSelected('4')}
-          underlayColor='#fff'>
-          <Text style={styles.buttonText}>Conditioning</Text>
-        </TouchableOpacity>
+        <AppButton title='Muscle Gains' onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)}/>
+
+        <AppButton title='Fat Loss' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.TWO)} colour={activeButton(NUMBERS.TWO)} textColour={activeText(NUMBERS.TWO)}/>
+
+        <AppButton title='Strength' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.THREE)} colour={activeButton(NUMBERS.THREE)} textColour={activeText(NUMBERS.THREE)}/>
+
+        <AppButton title='Conditioning' onPress={handleSelected} onPress={() => handleSelected(NUMBERS.FOUR)} colour={activeButton(NUMBERS.FOUR)} textColour={activeText(NUMBERS.FOUR)}/>
       </View>
     </Screen>
   )
@@ -55,26 +46,6 @@ const TrainingGoal = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 30
-  },
-  button: {
-    backgroundColor: colours.white,
-    borderTopLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    marginHorizontal: 40,
-    marginVertical: 20,
-    paddingVertical: 10,
-    borderWidth: 5,
-    borderColor: colours.primary
-  },
-  buttonText:{
-      textAlign:'center',
-      paddingLeft : 10,
-      paddingRight : 10,
-      ...defaultStyles.text,
-      color:colours.primary,
-      fontWeight: "800"
   },
   activeButton: {
     backgroundColor: colours.plight,
