@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bear-fitness-app",
+    "name": "Bear Fitness Workout Generator",
     "slug": "bear-fitness-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +21,7 @@
     },
     "android": {
       "package": "com.bearFitness",
-      "versionCode": 1
+      "versionCode": 3
     },
     "web": {
       "favicon": "./app/assets/favicon.png"

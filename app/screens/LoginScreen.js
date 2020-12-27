@@ -33,8 +33,10 @@ const LoginScreen = () => {
                         alert("User does not exist anymore.")
                         return;
                     }
-                    const user = firestoreDocument.data()
-                    setMessage("User logged in succesfully")
+                    // const user = firestoreDocument.data()
+                    const user = firebase.auth().currentUser
+                    console.log('user', user)
+                    setMessage("User logged in succesfully 1")
                 })
                 .catch(error => {
                     console.log('error', error)

@@ -1,53 +1,73 @@
-import React from "react";
-import { ImageBackground, StyleSheet, View, Image } from "react-native";
+import React from "react"
+import { StyleSheet, View, Image, Text } from "react-native"
+import { LinearGradient } from 'expo-linear-gradient'
 
 import AppButton from '../components/AppButton'
-import Screen from "../components/Screen";
+import Screen from "../components/Screen"
+import colours from "../config/colours"
+import defaultStyles from "../config/defaultStyles"
 
-function WelcomeScreen(props) {
+
+const WelcomeScreen = ({ navigation }) => {
   return (
-    <ImageBackground
-      style={styles.background}
-      source={require("../assets/welcomeScreen.jpg")}
-    >
     <Screen style={styles.screen}>
+        <LinearGradient
+        // Background Linear Gradient
+        colors={['#0f3057', '#00587a', '#008891', '#e7e7de']}
+        start={[1, 0]}
+        end={[0, 1]}
+        locations={[0.0, 0.33, 0.67, 1.0]}
+        style={styles.background}
+      />
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/bearFitness.png")} />
+        <Image style={styles.logo} source={require("../assets/b-fit-logo.png")} />
+        <Text style={styles.caption}>Workouts that suit you</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="Sign In" />
-        <AppButton title="Register" colour="secondary" />
+        <AppButton title="Sign In" onPress={() => navigation.navigate("Login")} />
+        <AppButton title="Register" colour="secondary" onPress={() => navigation.navigate("Register")}/>
       </View>
     </Screen>
-      
-    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
   screen: {
     width: "100%",
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
   },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+  },
+  bgLogo: {
+    flex: 1,
+    resizeMode: "cover",
+    width: '100%'
+  },
   buttonsContainer: {
     padding: 20,
     width: "100%",
   },
   logo: {
-    width: 150,
-    height: 100,
+    width: '80%',
+    height: '100%',
   },
   logoContainer: {
     position: "absolute",
-    top: 0,
+    top: 100,
     alignItems: "center",
+  },
+  caption: {
+    ...defaultStyles.text,
+    color: colours.plightEve,
+    fontSize: 22,
+    paddingTop: 20
   },
 });
 
