@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, View, Image, Text } from "react-native"
+import { LinearGradient } from 'expo-linear-gradient'
 
 import AppButton from '../components/AppButton'
 import Screen from "../components/Screen"
@@ -10,8 +11,16 @@ import defaultStyles from "../config/defaultStyles"
 const WelcomeScreen = ({ navigation }) => {
   return (
     <Screen style={styles.screen}>
+        <LinearGradient
+        // Background Linear Gradient
+        colors={['#0f3057', '#00587a', '#008891', '#e7e7de']}
+        start={[1, 0]}
+        end={[0, 1]}
+        locations={[0.0, 0.33, 0.67, 1.0]}
+        style={styles.background}
+      />
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/BearFitnessLogo.png")} />
+        <Image style={styles.logo} source={require("../assets/b-fit-logo.png")} />
         <Text style={styles.caption}>Workouts that suit you</Text>
       </View>
       <View style={styles.buttonsContainer}>
@@ -19,7 +28,6 @@ const WelcomeScreen = ({ navigation }) => {
         <AppButton title="Register" colour="secondary" onPress={() => navigation.navigate("Register")}/>
       </View>
     </Screen>
-      
   );
 }
 
@@ -29,15 +37,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    backgroundColor: "#061833"
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
+  },
+  bgLogo: {
+    flex: 1,
+    resizeMode: "cover",
+    width: '100%'
   },
   buttonsContainer: {
     padding: 20,
     width: "100%",
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: '80%',
+    height: '100%',
   },
   logoContainer: {
     position: "absolute",
@@ -46,7 +65,7 @@ const styles = StyleSheet.create({
   },
   caption: {
     ...defaultStyles.text,
-    color: colours.secondary,
+    color: colours.plightEve,
     fontSize: 22,
     paddingTop: 20
   },
