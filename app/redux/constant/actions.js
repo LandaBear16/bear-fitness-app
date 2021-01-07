@@ -1,1 +1,2 @@
 export const UPDATE_SORT = 'UPDATE_SORT'
+export const UPDATE_GOALS = 'UPDATE_GOALS'

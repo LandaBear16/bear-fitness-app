@@ -2,9 +2,11 @@ import * as ACTIONS from '../constant/actions'
 import { handleActions } from 'redux-actions'
 
 const initialState = {
+  goals: null,
+  trainingGoal: '',
   direction: {},
   sort: {},
-  tableName: null
+  tableName: 'Yolanda'
 }
 
 export default handleActions(
@@ -18,7 +20,10 @@ export default handleActions(
         ...state.sort,
         [action.payload.tableName]: action.payload.sort
       },
-      tableName: action.payload.tableName
+      trainingGoal: action.payload.trainingGoal
+    }),
+    [ACTIONS.UPDATE_GOALS]: (state, action) => ({
+      goals: action.payload
     })
   },
   initialState

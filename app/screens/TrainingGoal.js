@@ -1,9 +1,13 @@
 import * as NUMBERS from '../common/constants/numbers'
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
 import { firebase } from '../firebase/config'
+import { updateTrainingGoal, updateGoals } from '../redux/action/workout-fitness'
 
 import AppButton from '../components/AppButton' 
+import AppBlock from '../components/AppBlock'
+import AppCard from '../components/AppCard'
 import Screen from '../components/Screen'
 import colours from '../config/colours'
 import defaultStyles from '../config/defaultStyles'
@@ -11,10 +15,13 @@ import defaultStyles from '../config/defaultStyles'
 const TrainingGoal = () => {
   const [selected, setSelected] = useState(null)
   const [goals, setGoals] = useState(null)
+  const workoutFitness = useSelector(state => state.workoutFitness)
+  const dispatch = useDispatch()
+  const addTrainingGoal = goal => dispatch(updateTrainingGoal(goal))
+  const setGoalsArray = goalArr => dispatch(updateGoals(goalArr))
 
   useEffect(() => {
-    const goals = getGoals()
-    
+    getGoals()
   }, [])
 
   const snapshotToArray = (snapshot) => {
@@ -23,51 +30,33 @@ const TrainingGoal = () => {
     snapshot.forEach((childSnapshot) => {
       let item = childSnapshot.data();
   
-      returnArr.push(item);
+      returnArr.push({id: childSnapshot.id, item});
     });
   
     return returnArr;
   };
 
   const getGoals = async () => {
-    
-    console.log('here', )
     const goalsRef = firebase.firestore().collection('training_goal');
-    
     const snapshot = await goalsRef.get();
     const goalsArray = snapshotToArray(snapshot)
+    // setGoalsArray(goalsArray)
     setGoals(goalsArray)
-
-    // const buttons = []
-    // snapshot.forEach(doc => {
-    //   console.log(doc.id, '=>', doc.data().name)
-    //   buttons.push(doc.data())
-    // })
-
-    // console.log('buttons', buttons)
-    // setGoals([...buttons])
-    // const goals = await firebase.firestore().collection("training_goal").get()
-    // goals.map((goal) => {
-    //   console.log('goal', goal.doc().data())
-    // })
-    // console.log('goal', goals)
-    // return goals !== null && goals.map((goal) => (<AppButton title={goal.name} onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)} marginVertical={30}/>))
   }
 
   goalDisplay = () => {
     return goals.map((goal) => {
-      console.log('gaol', goal.id)
-      return <AppButton title={goal.name} onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)} marginVertical={30}/>
+      return <AppCard key={goal.id} title={goal.item.name} onPress={() => handleSelected(goal.id)} colour={activeButton(goal.id)} textColour={activeText(goal.id)} marginVertical={30}/>
     })
   }
 
-  const handleSelected = (flag, button) => {
-    console.log('flag', flag)
-    setSelected(flag)
+  const handleSelected = (id) => {
+    console.log('flag', id)
+    setSelected(id)
+    addTrainingGoal(id)
   }
 
   const activeButton = (key) => {
-
     return selected === key ? 'green' : 'primary'
   }
 
@@ -79,7 +68,13 @@ const TrainingGoal = () => {
   return (
     <Screen>
       <View style={styles.container}>
-      {goals && goalDisplay()}
+        <Text>NBOOM</Text>
+        <AppBlock>
+          <AppCard>
+            <Text>Hello</Text>
+          </AppCard>
+        </AppBlock>
+      
         {/* <AppButton title='Muscle Gains' onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)} marginVertical={30}/>
 
         <AppButton title='Fat Loss' onPress={() => handleSelected(NUMBERS.TWO)} colour={activeButton(NUMBERS.TWO)} textColour={activeText(NUMBERS.TWO)} marginVertical={30}/>
@@ -95,7 +90,11 @@ const TrainingGoal = () => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 50,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between'
   },
   activeButton: {
     backgroundColor: colours.plight,
