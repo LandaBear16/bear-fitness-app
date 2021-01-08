@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { firebase } from '../firebase/config'
-import { updateTrainingGoal, updateGoals, setInitialGoals } from '../redux/action/workout-fitness'
+import { selectedEquipmentList, setEquipmentList } from '../redux/action/workout-fitness'
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
@@ -13,51 +13,56 @@ import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
-const TrainingGoal = () => {
-  const [selected, setSelected] = useState(null)
-  const { goals } = useSelector(state => state.workoutFitness)
+const EquipmentList = () => {
+  const { equipmentList, selectedEquipment } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
-  const addTrainingGoal = goal => dispatch(updateTrainingGoal(goal))
-  const setGoalsArray = goalArr => dispatch(setInitialGoals(goalArr))
+  const addEquipment = equipment => dispatch(selectedEquipmentList(equipment))
+  const addEquipmentList = equipArr => dispatch(setEquipmentList(equipArr))
 
   useEffect(() => {
-    getGoals()
+    getEquipmentList()
   }, [])
 
-  const getGoals = async () => {
-    const goalsRef = firebase.firestore().collection('training_goal');
-    const snapshot = await goalsRef.get();
-    const goalsArray = snapshotToArray(snapshot)
-    setGoalsArray(goalsArray)
+  const getEquipmentList = async () => {
+    const equipmentRef = firebase.firestore().collection('equipment');
+    const snapshot = await equipmentRef.orderBy('name').get();
+    const equipmentArray = snapshotToArray(snapshot)
+    addEquipmentList(equipmentArray)
+
   }
 
 
   const handleSelected = (id) => {
-    setSelected(id)
-    addTrainingGoal(id)
+    const list = selectedEquipment
+    list.includes(id) 
+    ? list.splice(list.indexOf(id), 1)
+    : list.push(id)
+
+    addEquipment(list)
   }
 
+
   const activeButton = (key) => {
-    return selected === key ? 'plight' : 'gray'
+    return selectedEquipment.includes(key) ? 'plight' : 'gray'
   }
 
   return (
     <Screen style={styles.container}>
-    <AppText primary height={20} h1 center bold style={styles.header}>Select your Training Goal:</AppText>
+    <AppText primary height={20} h1 center bold style={styles.header}>Select your Equipment:</AppText>
     <AppBlock>
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ paddingVertical: sizes.base * 2 }}
         >
           <AppBlock flex={false} row space="between" style={styles.goals}>
-            {goals && goals.map(goal => (
+            {equipmentList && equipmentList.map(equipment => (
               <TouchableOpacity
-                key={goal.id}
-                onPress={() => handleSelected(goal.id)}
+                key={equipment.id}
+                onPress={() => handleSelected(equipment.id)}
               >
-                <AppCard center middle shadow colour={activeButton(goal.id)} style={styles.goal} >
+                <AppCard center middle shadow colour={activeButton(equipment.id)} style={styles.goal} >
                   <AppText dark height={20} size={18}>
-                    {goal.item.name}
+                    {equipment.item.name}
                   </AppText>
                 </AppCard>
               </TouchableOpacity>
@@ -88,4 +93,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TrainingGoal
+export default EquipmentList

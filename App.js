@@ -8,7 +8,7 @@ import reducers from './app/redux/reducer/index'
 
 import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
-import TrainingGoal from './app/screens/TrainingGoal'
+import EquipmentList from './app/screens/EquipmentList'
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
@@ -17,7 +17,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <TrainingGoal />
+        <EquipmentList />
       </NavigationContainer>
     </Provider>
   );

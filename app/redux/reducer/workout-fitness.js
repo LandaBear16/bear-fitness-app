@@ -6,26 +6,28 @@ const initialState = {
   trainingGoal: '',
   direction: {},
   sort: {},
-  tableName: 'Yolanda'
+  tableName: 'Yolanda',
+  equipmentList: null,
+  selectedEquipment: []
 }
 
 export default handleActions(
   {
-    [ACTIONS.UPDATE_SORT]: (state, action) => ({
+    [ACTIONS.UPDATE_TRAINING_GOAL]: (state, action) => ({
       ...state,
-      direction: {
-        ...state.direction,
-        [action.payload.tableName]: action.payload.direction
-      },
-      sort: {
-        ...state.sort,
-        [action.payload.tableName]: action.payload.sort
-      },
-      trainingGoal: action.payload.trainingGoal
+      trainingGoal: action.payload.trainingGoal,
     }),
     [ACTIONS.UPDATE_GOALS]: (state, action) => ({
       ...state,
       goals: action.payload
+    }),
+    [ACTIONS.SET_EQUIPMENT_LIST]: (state, action) => ({
+      ...state,
+      equipmentList: action.payload
+    }),
+    [ACTIONS.SELECTED_EQUIPMENT_LIST]: (state, action) => ({
+      ...state,
+      selectedEquipment: action.payload
     })
   },
   initialState
