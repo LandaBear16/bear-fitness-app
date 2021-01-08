@@ -4,7 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { UserContext } from '../context/UserContext'
 
 import AuthStackScreens from './AuthStackScreens'
-import Home from './app/screens/Home'
+import Home from '../screens/Home'
+import LoadingScreen from '../screens/LoadingScreen'
 
 const AppStackScreens = () => {
   const AppStack = createStackNavigator()
