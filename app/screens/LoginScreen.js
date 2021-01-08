@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { StyleSheet, Text } from 'react-native'
 import * as Yup from 'yup'
 import { FirebaseContext } from '../context/FirebaseContext'
+import { UserContext } from '../context/UserContext'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
@@ -18,11 +19,23 @@ const LoginScreen = () => {
   const firebase = useContext(FirebaseContext)
   const [user, setUser] = useContext(UserContext)
 
+  console.log('firebase', firebase)
+
   const handleLogin = async ({email, password}) => {
     try {
       await firebase.login(email, password)
 
       const uid = firebase.getCurrentUser().uid
+      console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
+
+      const userInfo = await firebase.getUserInfo(uid)
+      console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
+
+      setUser({
+        email: userInfo.email,
+        uid,
+        isLoggedIn: true
+      })
 
     } catch (error) {
       console.error(error)
@@ -69,7 +82,7 @@ const LoginScreen = () => {
           email: '',
           password: ''
         }}
-        onSubmit={values => onLoginPress(values)}
+        onSubmit={values => handleLogin(values)}
         validationSchema={validationSchema}
       >
         <AppFormField

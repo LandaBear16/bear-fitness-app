@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native'
 import { Provider } from 'react-redux'
+import { FirebaseProvider } from './app/context/FirebaseContext'
+import { UserProvider } from './app/context/UserContext'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from './app/redux/reducer/index'
@@ -16,11 +18,15 @@ const store = createStore(reducers, applyMiddleware(thunk))
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <AppStackScreens />
-      </NavigationContainer>
-    </Provider>
+    <FirebaseProvider>
+      <UserProvider>
+        <Provider store={store}>
+          <NavigationContainer>
+            <AppStackScreens />
+          </NavigationContainer>
+        </Provider>
+      </UserProvider>
+    </FirebaseProvider>
   );
 }
 

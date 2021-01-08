@@ -2,7 +2,7 @@ import * as firebase from 'firebase';
 import '@firebase/auth';
 import '@firebase/firestore';
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyBmBi_9sHli3-RE0slzFJpZQmBtqUDjbvI",
   authDomain: "bear-fitness-app.firebaseapp.com",
   databaseURL: "https://bear-fitness-app.firebaseio.com",

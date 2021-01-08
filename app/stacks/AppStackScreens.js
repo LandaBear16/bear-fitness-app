@@ -10,12 +10,11 @@ import LoadingScreen from '../screens/LoadingScreen'
 const AppStackScreens = () => {
   const AppStack = createStackNavigator()
   const [user] = useContext(UserContext)
+  console.log("🚀 ~ file: AppStackScreens.js ~ line 13 ~ AppStackScreens ~ user", user)
 
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }} >
-    {user.isLoggedIn === null ? (
-        <AppStack.Screen name="Loading" component={LoadingScreen} />
-    ) : user.isLoggedIn ? (
+    {user.isLoggedIn ? (
         <AppStack.Screen name="Home" component={Home} />
     ) : (
       <AppStack.Screen name="Auth" component={AuthStackScreens} />
