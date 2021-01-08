@@ -6,6 +6,7 @@ import { updateTrainingGoal, updateGoals, setInitialGoals } from '../redux/actio
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
+import AppButtonBasic from '../components/AppButtonBasic'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import {sizes} from "../config/theme";
@@ -13,7 +14,7 @@ import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
-const TrainingGoal = () => {
+const TrainingGoal = ({ navigation }) => {
   const [selected, setSelected] = useState(null)
   const { goals } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -23,6 +24,7 @@ const TrainingGoal = () => {
   useEffect(() => {
     getGoals()
   }, [])
+
 
   const getGoals = async () => {
     const goalsRef = firebase.firestore().collection('training_goal');
@@ -43,29 +45,30 @@ const TrainingGoal = () => {
 
   return (
     <Screen style={styles.container}>
-    <AppText primary height={20} h1 center bold style={styles.header}>Select your Training Goal:</AppText>
-    <AppBlock>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ paddingVertical: sizes.base * 2 }}
-        >
-          <AppBlock flex={false} row space="between" style={styles.goals}>
-            {goals && goals.map(goal => (
-              <TouchableOpacity
-                key={goal.id}
-                onPress={() => handleSelected(goal.id)}
-              >
-                <AppCard center middle shadow colour={activeButton(goal.id)} style={styles.goal} >
-                  <AppText dark height={20} size={18}>
-                    {goal.item.name}
-                  </AppText>
-                </AppCard>
-              </TouchableOpacity>
-            ))}
-          </AppBlock>
-        </ScrollView>
-      </AppBlock>
-      </Screen>
+      <AppText primary height={20} h1 center bold style={styles.header}>Select your Training Goal:</AppText>
+      <AppBlock>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ paddingVertical: sizes.base * 2 }}
+          >
+            <AppBlock flex={false} row space="between" style={styles.goals}>
+              {goals && goals.map(goal => (
+                <TouchableOpacity
+                  key={goal.id}
+                  onPress={() => handleSelected(goal.id)}
+                >
+                  <AppCard center middle shadow colour={activeButton(goal.id)} style={styles.goal} >
+                    <AppText dark height={20} size={18}>
+                      {goal.item.name}
+                    </AppText>
+                  </AppCard>
+                </TouchableOpacity>
+              ))}
+            </AppBlock>
+          </ScrollView>
+        </AppBlock>
+        <AppButtonBasic title='Next' onPress={() => navigation.navigate('EquipmentList')}/>
+    </Screen>
   )
 }
 

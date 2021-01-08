@@ -10,8 +10,8 @@ import reducers from './app/redux/reducer/index'
 
 import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
-import Levels from './app/screens/Levels'
-import Home from './app/screens/Home'
+import WorkoutGeneratorStack from './app/stacks/WorkoutGeneratorStack'
+
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
@@ -22,7 +22,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <AppStackScreens />
+            <WorkoutGeneratorStack />
           </NavigationContainer>
         </Provider>
       </UserProvider>

@@ -6,6 +6,7 @@ import { selectedEquipmentList, setEquipmentList } from '../redux/action/workout
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
+import AppButtonBasic from '../components/AppButtonBasic'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import {sizes} from "../config/theme";
@@ -13,7 +14,7 @@ import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
-const EquipmentList = () => {
+const EquipmentList = ({ navigation }) => {
   const { equipmentList, selectedEquipment } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const addEquipment = equipment => dispatch(selectedEquipmentList(equipment))
@@ -70,6 +71,7 @@ const EquipmentList = () => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
+      <AppButtonBasic title='Next' onPress={() => navigation.navigate('TrainingGoals')}/>
       </Screen>
   )
 }
