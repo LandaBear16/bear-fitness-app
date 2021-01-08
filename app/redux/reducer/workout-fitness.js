@@ -8,7 +8,9 @@ const initialState = {
   sort: {},
   tableName: 'Yolanda',
   equipmentList: null,
-  selectedEquipment: []
+  selectedEquipment: [],
+  muscleGroupList: null,
+  selectedMuscleGroup: ''
 }
 
 export default handleActions(
@@ -28,6 +30,15 @@ export default handleActions(
     [ACTIONS.SELECTED_EQUIPMENT_LIST]: (state, action) => ({
       ...state,
       selectedEquipment: action.payload
+    })
+    ,
+    [ACTIONS.SET_MUSCLE_GROUP]: (state, action) => ({
+      ...state,
+      muscleGroupList: action.payload
+    }),
+    [ACTIONS.SELECTED_MUSCLE_GROUP]: (state, action) => ({
+      ...state,
+      selectedMuscleGroup: action.payload
     })
   },
   initialState
