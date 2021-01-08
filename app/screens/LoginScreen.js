@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text } from 'react-native'
 import * as Yup from 'yup'
-import { firebase } from '../firebase/config'
+import { FirebaseContext } from '../context/FirebaseContext'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
@@ -15,39 +15,52 @@ const validationSchema = Yup.object().shape({
 
 const LoginScreen = () => {
   const [message, setMessage] = useState("")
+  const firebase = useContext(FirebaseContext)
+  const [user, setUser] = useContext(UserContext)
 
-  const onLoginPress = ({ email, password }) => {
-    firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then((response) => {
+  const handleLogin = async ({email, password}) => {
+    try {
+      await firebase.login(email, password)
 
-            const uid = response.user.uid
-            const usersRef = firebase.firestore().collection('users')
-            usersRef
-                .doc(uid)
-                .get()
-                .then(firestoreDocument => {
+      const uid = firebase.getCurrentUser().uid
 
-                    if (!firestoreDocument.exists) {
-                        alert("User does not exist anymore.")
-                        return;
-                    }
-                    // const user = firestoreDocument.data()
-                    const user = firebase.auth().currentUser
-                    console.log('user', user)
-                    setMessage("User logged in succesfully 1")
-                })
-                .catch(error => {
-                    console.log('error', error)
-                    setMessage("User Not logged in")
-                    alert(error)
-                });
-        })
-        .catch(error => {
-            alert(error)
-        })
-}
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+//   const onLoginPress = ({ email, password }) => {
+//     firebase
+//         .auth()
+//         .signInWithEmailAndPassword(email, password)
+//         .then((response) => {
+
+//             const uid = response.user.uid
+//             const usersRef = firebase.firestore().collection('users')
+//             usersRef
+//                 .doc(uid)
+//                 .get()
+//                 .then(firestoreDocument => {
+
+//                     if (!firestoreDocument.exists) {
+//                         alert("User does not exist anymore.")
+//                         return;
+//                     }
+//                     // const user = firestoreDocument.data()
+//                     const user = firebase.auth().currentUser
+//                     console.log('user', user)
+//                     setMessage("User logged in succesfully 1")
+//                 })
+//                 .catch(error => {
+//                     console.log('error', error)
+//                     setMessage("User Not logged in")
+//                     alert(error)
+//                 });
+//         })
+//         .catch(error => {
+//             alert(error)
+//         })
+// }
 
   return (
     <Screen style={styles.container}>
