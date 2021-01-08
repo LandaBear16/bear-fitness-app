@@ -15,6 +15,18 @@ const Firebase = {
   getCurrentUser: () => {
     return firebase.auth().currentUser;
   },
+
+  getUserInfo: async (uid) => {
+    try {
+      const user = await db.collection('users').doc(uid).get()
+
+      if(user.exists) {
+        return user.data()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 const FirebaseProvider = (props) => {
