@@ -17,7 +17,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Levels />
+        <AppStackScreens />
       </NavigationContainer>
     </Provider>
   );
