@@ -8,7 +8,7 @@ import reducers from './app/redux/reducer/index'
 
 import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
-import EquipmentList from './app/screens/EquipmentList'
+import MuscleGroup from './app/screens/MuscleGroup'
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
@@ -17,7 +17,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <EquipmentList />
+        <MuscleGroup />
       </NavigationContainer>
     </Provider>
   );

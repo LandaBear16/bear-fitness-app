@@ -5,6 +5,8 @@ const updateSort = createAction(ACTION.UPDATE_TRAINING_GOAL)
 const updateGoals = createAction(ACTION.UPDATE_GOALS)
 const updateEquipmentList = createAction(ACTION.SET_EQUIPMENT_LIST)
 const updateSelectedEquipmentList = createAction(ACTION.SELECTED_EQUIPMENT_LIST)
+const updateMuscleGroupList = createAction(ACTION.SET_MUSCLE_GROUP)
+const updateSelectedMuscleGroup = createAction(ACTION.SELECTED_MUSCLE_GROUP)
 
 
 export const updateTrainingGoal = (id) => (dispatch, getState) => {
@@ -29,4 +31,14 @@ export const selectedEquipmentList = (list) => (dispatch, getState) => {
 
 export const setEquipmentList = (list) => (dispatch, getState) => {
   dispatch(updateEquipmentList(list))
+}
+
+export const selectedMuscleGroup = (group) => (dispatch, getState) => {
+  dispatch(updateSelectedMuscleGroup(group))
+  const state = getState()
+  console.log('state muscle', state)
+}
+
+export const setMuscleGroupList = (list) => (dispatch, getState) => {
+  dispatch(updateMuscleGroupList(list))
 }
