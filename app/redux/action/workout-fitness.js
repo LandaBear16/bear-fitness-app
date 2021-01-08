@@ -48,6 +48,8 @@ export const setMuscleGroupList = (list) => (dispatch, getState) => {
 
 export const selectedLevel = (level) => (dispatch, getState) => {
   dispatch(updateSelectedLevel(level))
+  const state = getState()
+  console.log('state level', state)
 }
 
 

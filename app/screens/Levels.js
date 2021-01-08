@@ -28,7 +28,14 @@ const Levels = () => {
     const levelsRef = firebase.firestore().collection('levels');
     const snapshot = await levelsRef.get();
     const levelsArray = snapshotToArray(snapshot)
-    setLevelArray(levelsArray)
+    const levelsList = sortLevels(levelsArray)
+    setLevelArray(levelsList)
+  }
+
+  const sortLevels = (levelsList) => {
+    return levelsList.sort((a,b) => {
+      return a.item.name === 'Advanced' ? 1 : -1
+    })
   }
 
 
