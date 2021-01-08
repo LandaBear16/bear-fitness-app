@@ -6,10 +6,10 @@ import { selectedEquipmentList, setEquipmentList } from '../redux/action/workout
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
-import AppButtonBasic from '../components/AppButtonBasic'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
-import {sizes} from "../config/theme";
+import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import { sizes} from "../config/theme"
 import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
@@ -50,7 +50,7 @@ const EquipmentList = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
     <AppText primary height={20} h1 center bold style={styles.header}>Select your Equipment:</AppText>
-    <AppBlock>
+    <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ paddingVertical: sizes.base * 2 }}
@@ -71,14 +71,17 @@ const EquipmentList = ({ navigation }) => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
-      <AppButtonBasic title='Next' onPress={() => navigation.navigate('TrainingGoals')}/>
-      </Screen>
+      <BottomNavigationButtons navigation={navigation} screenName='MuscleGroup' backName='TrainingGoals' style={styles.bottomNav}/>
+    </Screen>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%'
+    height: '100%',
+  },
+  scrollContainer: {
+    flex: 9,
   },
   header: {
     paddingVertical: 30
@@ -92,6 +95,11 @@ const styles = StyleSheet.create({
     minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     height: 150,
+  },
+  bottomNav: {
+    minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    height: 50,
   }
 })
 

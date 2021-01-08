@@ -6,15 +6,20 @@ import { updateTrainingGoal, updateGoals, setInitialGoals } from '../redux/actio
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
-import AppButtonBasic from '../components/AppButtonBasic'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
-import {sizes} from "../config/theme";
+import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import { sizes} from "../config/theme"
 import Screen from '../components/Screen'
+
 
 const { width } = Dimensions.get("window")
 
-const TrainingGoal = ({ navigation }) => {
+const TrainingGoal = (props) => {
+  const {
+    navigation
+  } = props
+
   const [selected, setSelected] = useState(null)
   const { goals } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -39,6 +44,7 @@ const TrainingGoal = ({ navigation }) => {
     addTrainingGoal(id)
   }
 
+
   const activeButton = (key) => {
     return selected === key ? 'plight' : 'gray'
   }
@@ -46,10 +52,10 @@ const TrainingGoal = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
       <AppText primary height={20} h1 center bold style={styles.header}>Select your Training Goal:</AppText>
-      <AppBlock>
+      <AppBlock style={styles.scrollContainer}>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{ paddingVertical: sizes.base * 2 }}
+            style={{ paddingVertical: sizes.base * 2, height: '90%' }}
           >
             <AppBlock flex={false} row space="between" style={styles.goals}>
               {goals && goals.map(goal => (
@@ -67,7 +73,7 @@ const TrainingGoal = ({ navigation }) => {
             </AppBlock>
           </ScrollView>
         </AppBlock>
-        <AppButtonBasic title='Next' onPress={() => navigation.navigate('EquipmentList')}/>
+        <BottomNavigationButtons navigation={navigation} screenName='EquipmentList' backName={null} style={styles.bottomNav}/>
     </Screen>
   )
 }
@@ -75,6 +81,9 @@ const TrainingGoal = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     height: '100%'
+  },
+  scrollContainer: {
+    flex: 9,
   },
   header: {
     paddingVertical: 30
@@ -88,7 +97,15 @@ const styles = StyleSheet.create({
     minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     height: 150,
+  },
+  bottomNav: {
+    minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    height: 50
   }
 })
 
 export default TrainingGoal
+
+
+ 

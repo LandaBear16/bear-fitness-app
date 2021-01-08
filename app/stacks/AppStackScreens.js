@@ -10,7 +10,6 @@ import WorkoutGeneratorStack from './WorkoutGeneratorStack'
 const AppStackScreens = () => {
   const AppStack = createStackNavigator()
   const [user] = useContext(UserContext)
-  console.log("🚀 ~ file: AppStackScreens.js ~ line 13 ~ AppStackScreens ~ user", user)
 
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }} >

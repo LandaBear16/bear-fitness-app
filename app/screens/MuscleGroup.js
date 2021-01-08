@@ -8,12 +8,13 @@ import { snapshotToArray } from '../helper/snapshotToArray'
 import AppBlock from '../components/AppBlock'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
+import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import {sizes} from "../config/theme";
 import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
-const MuscleGroup = () => {
+const MuscleGroup = ({ navigation }) => {
   const [selected, setSelected] = useState(null)
   const { muscleGroupList } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -44,7 +45,7 @@ const MuscleGroup = () => {
   return (
     <Screen style={styles.container}>
     <AppText primary height={20} h1 center bold style={styles.header}>Select the Muscle Group to train:</AppText>
-    <AppBlock>
+    <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ paddingVertical: sizes.base * 2 }}
@@ -65,6 +66,7 @@ const MuscleGroup = () => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
+      <BottomNavigationButtons navigation={navigation} screenName='Levels' backName='EquipmentList' style={styles.bottomNav}/>
       </Screen>
   )
 }
@@ -72,6 +74,9 @@ const MuscleGroup = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%'
+  },
+  scrollContainer: {
+    flex: 9,
   },
   header: {
     paddingVertical: 30
@@ -85,6 +90,11 @@ const styles = StyleSheet.create({
     minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     height: 150,
+  },
+  bottomNav: {
+    minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    height: 50,
   }
 })
 
