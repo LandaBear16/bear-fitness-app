@@ -43,21 +43,21 @@ const Levels = () => {
 
   return (
     <Screen style={styles.container}>
-    <AppText primary height={20} h1 center bold style={styles.header}>Select the Muscle Group to train:</AppText>
+    <AppText primary height={20} h1 center bold style={styles.header}>Select your Fitness Level:</AppText>
     <AppBlock>
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ paddingVertical: sizes.base * 2 }}
         >
           <AppBlock flex={false} row space="between" style={styles.goals}>
-            {muscleGroupList && muscleGroupList.map(group => (
+            {levelList && levelList.map(level => (
               <TouchableOpacity
-                key={group.id}
-                onPress={() => handleSelected(group.id)}
+                key={level.id}
+                onPress={() => handleSelected(level.id)}
               >
-                <AppCard center middle shadow colour={activeButton(group.id)} style={styles.goal} >
+                <AppCard center middle shadow colour={activeButton(level.id)} style={styles.goal} >
                   <AppText dark height={20} size={18}>
-                    {group.item.name}
+                    {level.item.name}
                   </AppText>
                 </AppCard>
               </TouchableOpacity>

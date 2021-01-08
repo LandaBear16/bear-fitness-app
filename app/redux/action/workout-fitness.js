@@ -7,6 +7,8 @@ const updateEquipmentList = createAction(ACTION.SET_EQUIPMENT_LIST)
 const updateSelectedEquipmentList = createAction(ACTION.SELECTED_EQUIPMENT_LIST)
 const updateMuscleGroupList = createAction(ACTION.SET_MUSCLE_GROUP)
 const updateSelectedMuscleGroup = createAction(ACTION.SELECTED_MUSCLE_GROUP)
+const updateLevelList = createAction(ACTION.SET_LEVELS)
+const updateSelectedLevel = createAction(ACTION.SELECTED_LEVEL)
 
 
 
@@ -42,4 +44,13 @@ export const selectedMuscleGroup = (group) => (dispatch, getState) => {
 
 export const setMuscleGroupList = (list) => (dispatch, getState) => {
   dispatch(updateMuscleGroupList(list))
+}
+
+export const selectedLevel = (level) => (dispatch, getState) => {
+  dispatch(updateSelectedLevel(level))
+}
+
+
+export const setLevelList = (list) => (dispatch, getState) => {
+  dispatch(updateLevelList(list))
 }
