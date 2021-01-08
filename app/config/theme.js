@@ -3,6 +3,7 @@ const colours = {
   secondary: "#00587a",
   black: "#000",
   white: "#fff",
+  gray: "#e6e8e6",
   medium: "#6e6969",
   light: "#d6e5e3",
   dark: "#0c0c0c",
@@ -10,7 +11,7 @@ const colours = {
   pdark: "#061833",
   green: "#00587a",
   pdarkblue: "#0f3f86",
-  plight: "#e7e7de"
+  plight: "#d7fff1"
 };
 
 const sizes = {
@@ -19,6 +20,7 @@ const sizes = {
   font: 14,
   radius: 6,
   padding: 25,
+  borderWidth: 0.5,
 
   // font sizes
   h1: 26,
@@ -30,4 +32,28 @@ const sizes = {
   caption: 12
 };
 
-export { colours, sizes }
+const fonts = {
+  h1: {
+    fontSize: sizes.h1
+  },
+  h2: {
+    fontSize: sizes.h2
+  },
+  h3: {
+    fontSize: sizes.h3
+  },
+  header: {
+    fontSize: sizes.header
+  },
+  title: {
+    fontSize: sizes.title
+  },
+  body: {
+    fontSize: sizes.body
+  },
+  caption: {
+    fontSize: sizes.caption
+  }
+}
+
+export { colours, sizes, fonts }

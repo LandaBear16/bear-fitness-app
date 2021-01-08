@@ -5,7 +5,7 @@ import { firebase } from '../firebase/config'
 import { useSelector, useDispatch } from "react-redux"
 import { updateTest } from '../redux/action/workout-fitness'
 
-import AppButton from '../components/AppButton' 
+import AppButtonBasic from '../components/AppButtonBasic' 
 import Screen from '../components/Screen'
 import colours from '../config/colours'
 
@@ -33,7 +33,7 @@ const TestScreen = (props) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <AppButton title='Test Query' onPress={testQuery}/>
+        <AppButtonBasic title='Test Query' onPress={testQuery}/>
       </View>
     </Screen>
   )

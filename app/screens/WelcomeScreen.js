@@ -2,7 +2,7 @@ import React from "react"
 import { StyleSheet, View, Image, Text } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
-import AppButton from '../components/AppButton'
+import AppButtonBasic from '../components/AppButtonBasic'
 import Screen from "../components/Screen"
 import colours from "../config/colours"
 import defaultStyles from "../config/defaultStyles"
@@ -24,8 +24,8 @@ const WelcomeScreen = ({ navigation }) => {
         <Text style={styles.caption}>Workouts that suit you</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="Sign In" onPress={() => navigation.navigate("Login")} />
-        <AppButton title="Register" colour="secondary" onPress={() => navigation.navigate("Register")}/>
+        <AppButtonBasic title="Sign In" onPress={() => navigation.navigate("Login")} />
+        <AppButtonBasic title="Register" colour="secondary" onPress={() => navigation.navigate("Register")}/>
       </View>
     </Screen>
   );

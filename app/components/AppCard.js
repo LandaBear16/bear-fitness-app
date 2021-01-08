@@ -7,7 +7,7 @@ import {colours, sizes} from '../config/theme'
 const AppCard = ({ colour, style, children, ...props }) => {
   const cardStyles = [styles.card, style]
   return (
-    <AppBlock color={colour || colours.white} style={cardStyles} {...props}>
+    <AppBlock color={colours[colour] || colours.white} style={cardStyles} {...props}>
       {children}
     </AppBlock>
   )
@@ -16,6 +16,8 @@ const AppCard = ({ colour, style, children, ...props }) => {
 export const styles = StyleSheet.create({
   card: {
     borderRadius: sizes.radius,
+    borderWidth: sizes.borderWidth,
+    borderColor: colours.primary,
     padding: sizes.base + 4,
     marginBottom: sizes.base
   }

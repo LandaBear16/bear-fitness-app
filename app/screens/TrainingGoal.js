@@ -1,24 +1,23 @@
-import * as NUMBERS from '../common/constants/numbers'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { firebase } from '../firebase/config'
-import { updateTrainingGoal, updateGoals } from '../redux/action/workout-fitness'
+import { updateTrainingGoal, updateGoals, setInitialGoals } from '../redux/action/workout-fitness'
 
-import AppButton from '../components/AppButton' 
 import AppBlock from '../components/AppBlock'
 import AppCard from '../components/AppCard'
+import AppText from '../components/AppText'
+import {sizes} from "../config/theme";
 import Screen from '../components/Screen'
-import colours from '../config/colours'
-import defaultStyles from '../config/defaultStyles'
+
+const { width } = Dimensions.get("window")
 
 const TrainingGoal = () => {
   const [selected, setSelected] = useState(null)
-  const [goals, setGoals] = useState(null)
-  const workoutFitness = useSelector(state => state.workoutFitness)
+  const { goals } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const addTrainingGoal = goal => dispatch(updateTrainingGoal(goal))
-  const setGoalsArray = goalArr => dispatch(updateGoals(goalArr))
+  const setGoalsArray = goalArr => dispatch(setInitialGoals(goalArr))
 
   useEffect(() => {
     getGoals()
@@ -40,67 +39,63 @@ const TrainingGoal = () => {
     const goalsRef = firebase.firestore().collection('training_goal');
     const snapshot = await goalsRef.get();
     const goalsArray = snapshotToArray(snapshot)
-    // setGoalsArray(goalsArray)
-    setGoals(goalsArray)
+    setGoalsArray(goalsArray)
   }
 
-  goalDisplay = () => {
-    return goals.map((goal) => {
-      return <AppCard key={goal.id} title={goal.item.name} onPress={() => handleSelected(goal.id)} colour={activeButton(goal.id)} textColour={activeText(goal.id)} marginVertical={30}/>
-    })
-  }
 
   const handleSelected = (id) => {
-    console.log('flag', id)
     setSelected(id)
     addTrainingGoal(id)
   }
 
   const activeButton = (key) => {
-    return selected === key ? 'green' : 'primary'
+    return selected === key ? 'plight' : 'gray'
   }
-
-  const activeText = (key) => {
-    return selected === key ? 'plight' : 'plight'
-  }
-
 
   return (
-    <Screen>
-      <View style={styles.container}>
-        <Text>NBOOM</Text>
-        <AppBlock>
-          <AppCard>
-            <Text>Hello</Text>
-          </AppCard>
-        </AppBlock>
-      
-        {/* <AppButton title='Muscle Gains' onPress={() => handleSelected(NUMBERS.ONE)} colour={activeButton(NUMBERS.ONE)} textColour={activeText(NUMBERS.ONE)} marginVertical={30}/>
-
-        <AppButton title='Fat Loss' onPress={() => handleSelected(NUMBERS.TWO)} colour={activeButton(NUMBERS.TWO)} textColour={activeText(NUMBERS.TWO)} marginVertical={30}/>
-
-        <AppButton title='Strength' onPress={() => handleSelected(NUMBERS.THREE)} colour={activeButton(NUMBERS.THREE)} textColour={activeText(NUMBERS.THREE)} marginVertical={30}/>
-
-        <AppButton title='Conditioning' onPress={() => handleSelected(NUMBERS.FOUR)} colour={activeButton(NUMBERS.FOUR)} textColour={activeText(NUMBERS.FOUR)} marginVertical={30}/> */}
-      </View>
-    </Screen>
+    <Screen style={styles.container}>
+    <AppText primary height={20} h1 center bold style={styles.header}>Select your Training Goal:</AppText>
+    <AppBlock>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ paddingVertical: sizes.base * 2 }}
+        >
+          <AppBlock flex={false} row space="between" style={styles.goals}>
+            {goals && goals.map(goal => (
+              <TouchableOpacity
+                key={goal.id}
+                onPress={() => handleSelected(goal.id)}
+              >
+                <AppCard center middle shadow colour={activeButton(goal.id)} style={styles.goal} >
+                  <AppText dark height={20} size={18}>
+                    {goal.item.name}
+                  </AppText>
+                </AppCard>
+              </TouchableOpacity>
+            ))}
+          </AppBlock>
+        </ScrollView>
+      </AppBlock>
+      </Screen>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
-    paddingHorizontal: 20,
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    height: '100%'
   },
-  activeButton: {
-    backgroundColor: colours.plight,
+  header: {
+    paddingVertical: 30
   },
-  activeButtonText: {
-    color: colours.plight
+  goals: {
+    flexWrap: "wrap",
+    paddingHorizontal: sizes.base * 2,
+    marginBottom: sizes.base * 3.5
+  },
+  goal: {
+    minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
+    height: 150,
   }
 })
 

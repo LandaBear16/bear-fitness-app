@@ -12,6 +12,7 @@ const initialState = {
 export default handleActions(
   {
     [ACTIONS.UPDATE_SORT]: (state, action) => ({
+      ...state,
       direction: {
         ...state.direction,
         [action.payload.tableName]: action.payload.direction
@@ -23,6 +24,7 @@ export default handleActions(
       trainingGoal: action.payload.trainingGoal
     }),
     [ACTIONS.UPDATE_GOALS]: (state, action) => ({
+      ...state,
       goals: action.payload
     })
   },

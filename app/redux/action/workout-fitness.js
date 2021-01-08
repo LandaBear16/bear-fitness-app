@@ -9,10 +9,10 @@ export const updateTrainingGoal = (id) => (dispatch, getState) => {
   console.log("🚀 ~ file: workout-fitness.js ~ line 8 ~ updateTest ~ id", id)
   dispatch(updateSort({trainingGoal: id}))
   const state = getState()
-  console.log('state', state)
+  console.log('state update', state)
 }
 
-export const setGoals = (goals) => (dispatch, getState) => {
+export const setInitialGoals = (goals) => (dispatch, getState) => {
   console.log("🚀 ~ file: workout-fitness.js ~ line 16 ~ setGoals ~ goals", goals)
   dispatch(updateGoals(goals))
   const state = getState()
