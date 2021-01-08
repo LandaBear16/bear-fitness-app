@@ -9,6 +9,7 @@ const updateMuscleGroupList = createAction(ACTION.SET_MUSCLE_GROUP)
 const updateSelectedMuscleGroup = createAction(ACTION.SELECTED_MUSCLE_GROUP)
 
 
+
 export const updateTrainingGoal = (id) => (dispatch, getState) => {
   console.log("🚀 ~ file: workout-fitness.js ~ line 8 ~ updateTest ~ id", id)
   dispatch(updateSort({trainingGoal: id}))

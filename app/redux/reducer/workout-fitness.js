@@ -10,7 +10,9 @@ const initialState = {
   equipmentList: null,
   selectedEquipment: [],
   muscleGroupList: null,
-  selectedMuscleGroup: ''
+  selectedMuscleGroup: '',
+  levelList: null,
+  selectedLevel: ''
 }
 
 export default handleActions(
@@ -30,8 +32,7 @@ export default handleActions(
     [ACTIONS.SELECTED_EQUIPMENT_LIST]: (state, action) => ({
       ...state,
       selectedEquipment: action.payload
-    })
-    ,
+    }),
     [ACTIONS.SET_MUSCLE_GROUP]: (state, action) => ({
       ...state,
       muscleGroupList: action.payload
@@ -39,6 +40,14 @@ export default handleActions(
     [ACTIONS.SELECTED_MUSCLE_GROUP]: (state, action) => ({
       ...state,
       selectedMuscleGroup: action.payload
+    }),
+    [ACTIONS.SET_LEVELS]: (state, action) => ({
+      ...state,
+      levelList: action.payload
+    }),
+    [ACTIONS.SELECTED_LEVEL]: (state, action) => ({
+      ...state,
+      selectedLevel: action.payload
     })
   },
   initialState
