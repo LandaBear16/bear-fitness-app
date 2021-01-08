@@ -1,3 +1,5 @@
+import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
+import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
@@ -73,7 +75,7 @@ const TrainingGoal = (props) => {
             </AppBlock>
           </ScrollView>
         </AppBlock>
-        <BottomNavigationButtons navigation={navigation} screenName='EquipmentList' backName={null} style={styles.bottomNav}/>
+        <BottomNavigationButtons title={BUTTON_TITLES.NEXT} navigation={navigation} screenName='EquipmentList' backName={null} style={styles.bottomNav} onPressEvent={null}/>
     </Screen>
   )
 }

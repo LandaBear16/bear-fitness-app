@@ -6,11 +6,14 @@ import AppButtonBasic from '../components/AppButtonBasic'
 
 import {colours, sizes} from "../config/theme"
 
-const BottomNavigationButtons = ({ navigation, title, screenName, backName, style }) => {
+const BottomNavigationButtons = ({ navigation, title, screenName, backName, style, fontStyles, onPressEvent }) => {
   return (
     <AppBlock style={styles.container}>
-      {backName !== null && <AppButtonBasic title='Back' onPress={() => navigation.navigate(backName) } style={style}/> }
-      <AppButtonBasic title={title} onPress={() => navigation.navigate(screenName)} style={style}/>
+      {backName !== null && <AppButtonBasic title='Back' onPress={() => navigation.navigate(backName) } style={style} fontStyles={fontStyles}/> }
+      {onPressEvent !== null 
+        ? <AppButtonBasic title={title} onPress={onPressEvent} style={style} fontStyles={fontStyles}/> 
+        : <AppButtonBasic title={title} onPress={() => navigation.navigate(screenName)} style={style} fontStyles={fontStyles}/>}
+      
     </AppBlock>
   )
 }

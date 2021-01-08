@@ -1,8 +1,10 @@
+import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
+import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { firebase } from '../firebase/config'
-import { selectedLevel, setLevelList } from '../redux/action/workout-fitness'
+import { selectedLevel, setLevelList, generateWorkout } from '../redux/action/workout-fitness'
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
@@ -20,6 +22,7 @@ const Levels = ({ navigation }) => {
   const dispatch = useDispatch()
   const addLevel = group => dispatch(selectedLevel(group))
   const setLevelArray = muscleArr => dispatch(setLevelList(muscleArr))
+  const workoutGenerator = workout => dispatch(generateWorkout())
 
   useEffect(() => {
     getLevels()
@@ -73,7 +76,7 @@ const Levels = ({ navigation }) => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
-      <BottomNavigationButtons navigation={navigation} screenName='' backName='MuscleGroup' style={styles.bottomNav}/>
+      <BottomNavigationButtons title={BUTTON_TITLES.GENERATE_WORKOUT} navigation={navigation} screenName='' backName='MuscleGroup' style={styles.bottomNav} fontStyles={styles.fontStyles} onPressEvent={workoutGenerator}/>
       </Screen>
   )
 }
@@ -101,7 +104,10 @@ const styles = StyleSheet.create({
   bottomNav: {
     minWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
     maxWidth: (width - sizes.padding * 2.4 - sizes.base) / 2,
-    height: 50,
+    height: 50
+  },
+  fontStyles: {
+    fontSize: 16
   }
 })
 
