@@ -11,7 +11,8 @@ import reducers from './app/redux/reducer/index'
 import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
 import WorkoutGeneratorStack from './app/stacks/WorkoutGeneratorStack'
-import CountDownTimer from './app/components/CountdownTimer'
+import ProfileScreen from './app/screens/ProfileScreen'
+
 
 
 const store = createStore(reducers, applyMiddleware(thunk))
@@ -23,7 +24,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <WorkoutGeneratorStack />
+            <ProfileScreen />
           </NavigationContainer>
         </Provider>
       </UserProvider>
