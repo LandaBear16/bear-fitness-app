@@ -16,39 +16,41 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label('Password')
 })
 
-const ProfileScreen = () => {
+const ProgressScreen = () => {
   
-  const firebase = useContext(FirebaseContext)
-  const dispatch = useDispatch()
-  const updateUser = user => dispatch(setUser(user))
-  const { user } = useSelector(state => state.auth)
+  // const firebase = useContext(FirebaseContext)
+  // const dispatch = useDispatch()
+  // const updateUser = user => dispatch(setUser(user))
+  // const { user } = useSelector(state => state.auth)
 
-  useEffect(() => {
-   userInformation()
-  }, [])
+  // useEffect(() => {
+  //  userInformation()
+  // }, [])
 
-  const userInformation = async () => {
-    try {
-      const uid = await firebase.getCurrentUser().uid
-      console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
+  // const userInformation = async () => {
+  //   try {
+  //     const uid = await firebase.getCurrentUser().uid
+  //     console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
 
-      const userInfo = await firebase.getUserInfo(uid)
-      console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
+  //     const userInfo = await firebase.getUserInfo(uid)
+  //     console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
 
-      updateUser(userInfo)
-    } catch (error) {
-      console.error(error)
-    }
+  //     updateUser(userInfo)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
    
-  }
+  // }
 
   return (
     <Screen>
       <Text>Profile Screen</Text>
       {user !== null && <AppForm
         initialValues={{
-          email: user.email,
-          fullName: user.fullName
+          age: '',
+          height: '',
+          weight: '',
+          gender: '',
         }}
         onSubmit={values => onRegisterPress(values)}
         validationSchema={validationSchema}
@@ -77,4 +79,4 @@ const ProfileScreen = () => {
   )
 }
 
-export default ProfileScreen
+export default ProgressScreen
