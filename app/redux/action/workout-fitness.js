@@ -2,6 +2,7 @@ import * as ACTION from '../constant/actions'
 import { createAction } from 'redux-actions'
 import { firebase } from '../../firebase/config'
 import _ from 'lodash'
+import { date } from 'yup/lib/locale'
 
 const updateSort = createAction(ACTION.UPDATE_TRAINING_GOAL)
 const updateGoals = createAction(ACTION.UPDATE_GOALS)
@@ -65,7 +66,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
     selectedLevel
   } = getState().workoutFitness
   // console.log('traing', trainingGoal)
-  // console.log('equip', selectedEquipment)
+  console.log('equip', selectedEquipment)
   // console.log('selectedMuscleGroup', selectedMuscleGroup)
   // console.log('LEVEL', selectedLevel)
 
@@ -76,9 +77,21 @@ export const generateWorkout = () => async (dispatch, getState) => {
 
   const exerciseList = []
 
-  bp.docs.map(doc => {
-    exerciseList.push(doc.data())
+ bp.docs.map(doc => {
+    const data = doc.data()
+    if (data.equipment.length == 1) {
+      exerciseList.push(data)
+    } else if (data.equipment.length > 1) {
+      const checkAllEquip = data.equipment.map((equip) => {
+        return _.includes(selectedEquipment, equip)
+      })
+      if (!_.includes(checkAllEquip, false)) {
+        exerciseList.push(data)
+      }
+    }
   })
+
+  console.log('exerciseLIST', exerciseList)
 
   const details = query.data().workout_details
 
@@ -91,13 +104,10 @@ export const generateWorkout = () => async (dispatch, getState) => {
 
   const workout = _.shuffle(exerciseList).slice(0, level.number_of_exercises);
   // console.log('workout', workout)
-  const workoutGeneratedList = workout.map((exercise) => {
-    const exerciseReps = `${level.reps} X ${exercise.name}`
-    console.log('exercise', exerciseReps)
-  })
+  // const workoutGeneratedList = workout.map((exercise) => {
+  //   const exerciseReps = `${level.reps} X ${exercise.name}`
+  //   console.log('exercise', exerciseReps)
+  // })
   console.log('-------------')
-  // const levelsRef = firebase.firestore().collection('levels');
-  // const snapshot = await levelsRef.get();
-  // const levelsArray = snapshotToArray(snapshot)
-  // const levelsList = sortLevels(levelsArray)
+
 }
