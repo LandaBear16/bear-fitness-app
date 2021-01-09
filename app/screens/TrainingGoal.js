@@ -75,7 +75,7 @@ const TrainingGoal = (props) => {
             </AppBlock>
           </ScrollView>
         </AppBlock>
-        <BottomNavigationButtons title={BUTTON_TITLES.NEXT} navigation={navigation} screenName='EquipmentList' backName={null} style={styles.bottomNav} onPressEvent={null}/>
+        <BottomNavigationButtons title={BUTTON_TITLES.NEXT} navigation={navigation} screenName='EquipmentList' backName='Home' style={styles.bottomNav} onPressEvent={null}/>
     </Screen>
   )
 }

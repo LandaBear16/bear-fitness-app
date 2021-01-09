@@ -3,12 +3,12 @@ import {
   Alert,
   Modal,
   StyleSheet,
-  Text,
-  TouchableHighlight,
   View
 } from "react-native";
 
-const App = ({ modalVisible, close }) => {
+import CountDownTimer from './CountdownTimer'
+
+const App = ({ modalVisible, close, restPeriod }) => {
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -21,14 +21,7 @@ const App = ({ modalVisible, close }) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Rest For: </Text>
-
-            <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-              onPress={close}
-            >
-              <Text style={styles.textStyle}>Skip Timer</Text>
-            </TouchableHighlight>
+            <CountDownTimer restPeriod={restPeriod} closeTimer={close}/>
           </View>
         </View>
       </Modal>

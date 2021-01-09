@@ -1,7 +1,8 @@
+import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { generateWorkout } from '../redux/action/workout-fitness'
+import { resetWorkoutOptions } from '../redux/action/workout-fitness'
 
 import AppBlock from '../components/AppBlock'
 import AppButtonBasic from '../components/AppButtonBasic'
@@ -9,18 +10,24 @@ import AppText from '../components/AppText'
 import AppModal from '../components/AppModal'
 import Screen from '../components/Screen'
 
+
 import {colours, sizes} from "../config/theme"
+
+
 
 const BeginWorkoutScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false)
+  const [setCount, increaseSetCount] = useState(1)
+  const [buttonName, setButtonName] = useState(`${BUTTON_TITLES.COMPLETE_SET} ${setCount}`)
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
-  const workoutGenerator = workout => dispatch(generateWorkout())
-  const count = 1
+  const reset = () => dispatch(resetWorkoutOptions())
 
 
-  const Item = ({ title }) => (
+
+
+  const Item = ({ title, navgation }) => (
     <View style={styles.item}>
       <Text style={styles.title}>{levelDetails.reps} x {title}</Text>
     </View>
@@ -32,10 +39,26 @@ const BeginWorkoutScreen = ({ navigation }) => {
 
   const openTimer = () => {
     setModalVisible(true)
+    checkSetCounter()
   }
 
   const closeTimer = () => {
     setModalVisible(false)
+  }
+
+  const checkSetCounter = () => {
+    console.log('setCount', setCount)
+    const set = setCount + 1
+    increaseSetCount(set)
+    if (set <= levelDetails.sets) {
+      console.log('set', setCount)
+      setButtonName(`${BUTTON_TITLES.COMPLETE_SET} ${set}`)
+    } 
+  }
+
+  const handleCompleteWorkout = () => {
+    reset()
+    navigation.navigate('Home')
   }
 
   return (
@@ -53,9 +76,14 @@ const BeginWorkoutScreen = ({ navigation }) => {
         }
         </SafeAreaView>
         </AppBlock>
-        <AppModal modalVisible={modalVisible} close={closeTimer} />
+        <AppModal modalVisible={modalVisible} close={closeTimer} restPeriod={levelDetails.rest_per_set}/>
         <View style={styles.border}>
-          <AppButtonBasic title={`Complete Set ${count}`} onPress={openTimer} />
+        {console.log('count', setCount < levelDetails.sets)}
+        {setCount <= levelDetails.sets
+        ? <AppButtonBasic title={buttonName} onPress={openTimer}  />
+        : <AppButtonBasic title={BUTTON_TITLES.COMPLETE_WORKOUT} onPress={handleCompleteWorkout}  />
+        }
+          
         </View>
     </Screen>
   )

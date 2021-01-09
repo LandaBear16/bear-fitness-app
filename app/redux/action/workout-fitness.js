@@ -61,6 +61,13 @@ export const setLevelList = (list) => (dispatch, getState) => {
   dispatch(updateLevelList(list))
 }
 
+export const resetWorkoutOptions = () => (dispatch, getState) => {
+  dispatch(updateTrainingGoal(''))
+  dispatch(selectedEquipmentList([]))
+  dispatch(selectedMuscleGroup(''))
+  dispatch(selectedLevel(''))
+}
+
 export const generateWorkout = () => async (dispatch, getState) => {
 
   const { 
@@ -70,32 +77,38 @@ export const generateWorkout = () => async (dispatch, getState) => {
     selectedLevel
   } = getState().workoutFitness
   // console.log('traing', trainingGoal)
-  console.log('equip', selectedEquipment)
-  // console.log('selectedMuscleGroup', selectedMuscleGroup)
+  // console.log('equip', selectedEquipment)
+  console.log('selectedMuscleGroup', selectedMuscleGroup)
   // console.log('LEVEL', selectedLevel)
 
   const query = await firebase.firestore().collection("training_goal").doc(trainingGoal).get()
   const exercises = await firebase.firestore().collection("exercise")
-  const bp = await exercises.where('equipment', 'array-contains-any', selectedEquipment).get()
+  let exerciseQuery = exercises
+  if (selectedMuscleGroup === 'gEYMgi3jiofm2Qd0h2Ev') {
+    exerciseQuery = exerciseQuery.where('equipment', 'array-contains-any', selectedEquipment).get()
+  } else {
+    exerciseQuery = exerciseQuery.where('muscle_group', '==', selectedMuscleGroup).where('equipment', 'array-contains-any', selectedEquipment).get()
+  }
+  const bp = await exerciseQuery
 
 
   const exerciseList = []
 
  bp.docs.map(doc => {
     const data = doc.data()
-    if (data.equipment.length == 1) {
+    if (data.equipment.length == 1 && _.includes(data.training_goal, trainingGoal)) {
       exerciseList.push(data)
     } else if (data.equipment.length > 1) {
       const checkAllEquip = data.equipment.map((equip) => {
         return _.includes(selectedEquipment, equip)
       })
-      if (!_.includes(checkAllEquip, false)) {
+      if (!_.includes(checkAllEquip, false) && _.includes(data.training_goal, trainingGoal)) {
         exerciseList.push(data)
       }
     }
   })
 
-
+console.log('exerciseList', exerciseList)
 
   const details = query.data().workout_details
 

@@ -23,7 +23,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <CountDownTimer />
+            <WorkoutGeneratorStack />
           </NavigationContainer>
         </Provider>
       </UserProvider>

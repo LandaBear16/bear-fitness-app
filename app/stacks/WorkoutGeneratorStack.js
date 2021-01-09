@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import Home from '../screens/Home'
 import TrainingGoal from '../screens/TrainingGoal'
 import EquipmentList from '../screens/EquipmentList'
 import MuscleGroup from '../screens/MuscleGroup'
@@ -15,6 +16,7 @@ const WorkoutGeneratorStack = () => {
 
   return (
     <WorkoutStack.Navigator screenOptions={{ headerShown: false }} >
+      <WorkoutStack.Screen name='Home' component={Home} />
       <WorkoutStack.Screen name='TrainingGoals' component={TrainingGoal} />
       <WorkoutStack.Screen name='EquipmentList' component={EquipmentList} />
       <WorkoutStack.Screen name='MuscleGroup' component={MuscleGroup} />
