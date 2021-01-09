@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../redux/action/auth'
 import { FirebaseContext } from '../context/FirebaseContext'
+import { generateAgeRange } from '../common/constants/pickerCategories'
 
 import * as Yup from 'yup'
 
@@ -24,9 +25,6 @@ const ProgressScreen = () => {
   // const updateUser = user => dispatch(setUser(user))
   // const { user } = useSelector(state => state.auth)
 
-  // useEffect(() => {
-  //  userInformation()
-  // }, [])
 
   // const userInformation = async () => {
   //   try {
@@ -79,7 +77,10 @@ const ProgressScreen = () => {
           placeholder='Email'
           textContentType='emailAddress'
         />
-        <AppFormPicker items={categories} name="category" placeholder="Category" />
+        <AppFormPicker items={generateAgeRange()} name='Age' placeholder='Select Age' />
+        <AppFormPicker items={generateAgeRange()} name='Height' placeholder='Height' />
+        <AppFormPicker items={generateAgeRange()} name='Weight' placeholder='Weight' />
+        <AppFormPicker items={generateAgeRange()} name='Gender' placeholder='Gender' />
         <SubmitButton title='Save' />
         
       </AppForm>
