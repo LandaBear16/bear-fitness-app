@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
+import { setUser } from '../redux/action/auth'
 import { FirebaseContext } from '../context/FirebaseContext'
 import * as Yup from 'yup'
 
@@ -26,6 +27,8 @@ const ProfileScreen = () => {
 
       const userInfo = await firebase.getUserInfo(uid)
       console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
+
+
   }
 
   return (
