@@ -11,7 +11,7 @@ import reducers from './app/redux/reducer/index'
 import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
 import WorkoutGeneratorStack from './app/stacks/WorkoutGeneratorStack'
-import ProfileScreen from './app/screens/ProfileScreen'
+import ProgressScreen from './app/screens/ProgressScreen'
 
 
 
@@ -24,7 +24,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <ProfileScreen />
+            <ProgressScreen />
           </NavigationContainer>
         </Provider>
       </UserProvider>

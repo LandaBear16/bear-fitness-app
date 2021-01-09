@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
+import AppFormPicker from '../components/form/AppFormPicker'
 import SubmitButton from '../components/form/SubmitButton'
 import Screen from '../components/Screen'
 
@@ -42,10 +43,16 @@ const ProgressScreen = () => {
    
   // }
 
+  const categories = [
+    { label: "Furniture", value: 1 },
+    { label: "Clothing", value: 2 },
+    { label: "Camera", value: 3 },
+  ]
+
   return (
     <Screen>
       <Text>Profile Screen</Text>
-      {user !== null && <AppForm
+      <AppForm
         initialValues={{
           age: '',
           height: '',
@@ -72,9 +79,10 @@ const ProgressScreen = () => {
           placeholder='Email'
           textContentType='emailAddress'
         />
+        <AppFormPicker items={categories} name="category" placeholder="Category" />
         <SubmitButton title='Save' />
         
-      </AppForm>}
+      </AppForm>
     </Screen>
   )
 }
