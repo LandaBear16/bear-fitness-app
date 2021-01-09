@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../redux/action/auth'
 import { FirebaseContext } from '../context/FirebaseContext'
+
 import * as Yup from 'yup'
 
 import AppForm from '../components/form/AppForm'
@@ -15,7 +17,11 @@ const validationSchema = Yup.object().shape({
 })
 
 const ProfileScreen = () => {
+  
   const firebase = useContext(FirebaseContext)
+  const dispatch = useDispatch()
+  const updateUser = user => dispatch(setUser(user))
+  const { user } = useSelector(state => state.auth)
 
   useEffect(() => {
    userInformation()
@@ -28,18 +34,19 @@ const ProfileScreen = () => {
       const userInfo = await firebase.getUserInfo(uid)
       console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
 
+      updateUser(userInfo)
+  }
 
+  const initialValues = {
+    email: user.email,
+    fullName: user.fullName
   }
 
   return (
     <Screen>
       <Text>Profile Screen</Text>
-      <AppForm
-        initialValues={{
-          fullName: '',
-          email: '',
-          password: ''
-        }}
+      {user !== null && <AppForm
+        initialValues={initialValues}
         onSubmit={values => onRegisterPress(values)}
         validationSchema={validationSchema}
       >
@@ -49,7 +56,8 @@ const ProfileScreen = () => {
           icon='account'
           keyboardType='default'
           name='fullName'
-          placeholder='Name'
+          // value={values.email}
+          // placeholder='Name'
         />
         <AppFormField
           autoCapitalize='none'
@@ -57,7 +65,7 @@ const ProfileScreen = () => {
           icon='email'
           keyboardType='email-address'
           name='email'
-          placeholder='Email'
+          // placeholder='Email'
           textContentType='emailAddress'
         />
         <AppFormField 
@@ -71,7 +79,7 @@ const ProfileScreen = () => {
         />
         <SubmitButton title='Register' />
         
-      </AppForm>
+      </AppForm>}
     </Screen>
   )
 }

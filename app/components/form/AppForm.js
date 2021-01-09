@@ -4,6 +4,7 @@ import { Formik } from 'formik'
 const AppForm = ({ initialValues, onSubmit, validationSchema, children }) => {
   return (
     <Formik
+        enableReinitialize={true}
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}

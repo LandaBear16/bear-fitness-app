@@ -1,17 +1,21 @@
 import React from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useFormikContext } from 'formik'
 
 import colours from '../config/colours'
 
 
 
-function AppTextInput({ icon, ...otherProps }) {
+function AppTextInput({ icon, name, ...otherProps }) {
+  const { initialValues } = useFormikContext()
   return (
     <View style={styles.container}>
       {icon && <MaterialCommunityIcons name={icon} size={20} color={colours.medium} style={styles.icon} />}
       <TextInput 
-        placeholderTextColor={colours.medium} {...otherProps} />
+        placeholderTextColor={colours.medium} 
+        value={initialValues[name]}
+        {...otherProps} />
     </View>
   );
 }
