@@ -17,8 +17,8 @@ import Screen from '../components/Screen'
 const { width } = Dimensions.get("window")
 
 const MuscleGroup = ({ navigation }) => {
-  const [selected, setSelected] = useState(null)
-  const { muscleGroupList } = useSelector(state => state.workoutFitness)
+  const [displayButton, setDisplayButton] = useState(true)
+  const { muscleGroupList, selectedMuscleGroup: muscleGroup } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const addMuscleGroup = group => dispatch(selectedMuscleGroup(group))
   const setMuscleGroupArray = muscleArr => dispatch(setMuscleGroupList(muscleArr))
@@ -36,12 +36,12 @@ const MuscleGroup = ({ navigation }) => {
 
 
   const handleSelected = (id) => {
-    setSelected(id)
     addMuscleGroup(id)
+    setDisplayButton(false)
   }
 
   const activeButton = (key) => {
-    return selected === key ? 'plight' : 'gray'
+    return muscleGroup === key ? 'plight' : 'gray'
   }
 
   return (
@@ -68,7 +68,14 @@ const MuscleGroup = ({ navigation }) => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
-      <BottomNavigationButtons title={BUTTON_TITLES.NEXT} navigation={navigation} screenName='Levels' backName='EquipmentList' style={styles.bottomNav} onPressEvent={null}/>
+      <BottomNavigationButtons 
+        displayButton={displayButton}
+        title={BUTTON_TITLES.NEXT} 
+        screenName='Levels' 
+        backName='EquipmentList' 
+        style={styles.bottomNav} 
+        onPressEvent={null}
+      />
       </Screen>
   )
 }

@@ -17,13 +17,9 @@ import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
-const TrainingGoal = (props) => {
-  const {
-    navigation
-  } = props
-
-  const [selected, setSelected] = useState(null)
-  const { goals } = useSelector(state => state.workoutFitness)
+const TrainingGoal = () => {
+  const [displayButton, setDisplayButton] = useState(true)
+  const { goals, trainingGoal } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const addTrainingGoal = goal => dispatch(updateTrainingGoal(goal))
   const setGoalsArray = goalArr => dispatch(setInitialGoals(goalArr))
@@ -42,14 +38,15 @@ const TrainingGoal = (props) => {
 
 
   const handleSelected = (id) => {
-    setSelected(id)
     addTrainingGoal(id)
+    setDisplayButton(false)
   }
 
 
   const activeButton = (key) => {
-    return selected === key ? 'plight' : 'gray'
+    return trainingGoal === key ? 'plight' : 'gray'
   }
+
 
   return (
     <Screen style={styles.container}>
@@ -75,7 +72,14 @@ const TrainingGoal = (props) => {
             </AppBlock>
           </ScrollView>
         </AppBlock>
-        <BottomNavigationButtons title={BUTTON_TITLES.NEXT} navigation={navigation} screenName='EquipmentList' backName='Home' style={styles.bottomNav} onPressEvent={null}/>
+        <BottomNavigationButtons 
+          displayButton={displayButton} 
+          title={BUTTON_TITLES.NEXT} 
+          screenName='EquipmentList' 
+          backName='Home' 
+          style={styles.bottomNav} 
+          onPressEvent={null}
+        />
     </Screen>
   )
 }

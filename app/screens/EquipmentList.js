@@ -1,6 +1,6 @@
 import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { firebase } from '../firebase/config'
@@ -17,6 +17,7 @@ import Screen from '../components/Screen'
 const { width } = Dimensions.get("window")
 
 const EquipmentList = ({ navigation }) => {
+  const [displayButton, setDisplayButton] = useState(true)
   const { equipmentList, selectedEquipment } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const addEquipment = equipment => dispatch(selectedEquipmentList(equipment))
@@ -42,6 +43,7 @@ const EquipmentList = ({ navigation }) => {
     : list.push(id)
 
     addEquipment(list)
+    setDisplayButton(false)
   }
 
 
@@ -73,7 +75,14 @@ const EquipmentList = ({ navigation }) => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
-      <BottomNavigationButtons title={BUTTON_TITLES.NEXT} navigation={navigation} screenName='MuscleGroup' backName='TrainingGoals' style={styles.bottomNav}onPressEvent={null}/>
+      <BottomNavigationButtons 
+        displayButton={displayButton}
+        title={BUTTON_TITLES.NEXT} 
+        screenName='MuscleGroup' 
+        backName='TrainingGoals' 
+        style={styles.bottomNav}
+        onPressEvent={null}
+      />
     </Screen>
   )
 }

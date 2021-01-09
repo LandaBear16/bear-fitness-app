@@ -1,18 +1,28 @@
 const colours = {
-  primary: "#0f3057",
-  secondary: "#00587a",
-  black: "#000",
-  white: "#fff",
-  gray: "#e6e8e6",
-  medium: "#6e6969",
-  light: "#d6e5e3",
-  dark: "#0c0c0c",
-  danger: "#ff5252",
-  pdark: "#061833",
-  green: "#00587a",
-  pdarkblue: "#0f3f86",
-  plight: "#d7fff1"
-};
+  primary: '#353535',
+  secondary: '#3C6E71',
+  white: '#FFFFFF',
+  gray: '#D9D9D9',
+  black: '#000000',
+  plight: '#d7fff1',
+  ming: '#3C6E71'
+}
+
+// const colours = {
+//   primary: "#0f3057",
+//   secondary: "#00587a",
+//   black: "#000",
+//   white: "#fff",
+//   gray: "#e6e8e6",
+//   medium: "#6e6969",
+//   light: "#d6e5e3",
+//   dark: "#0c0c0c",
+//   danger: "#ff5252",
+//   pdark: "#061833",
+//   green: "#00587a",
+//   pdarkblue: "#0f3f86",
+//   plight: "#d7fff1"
+// };
 
 const sizes = {
   // global sizes

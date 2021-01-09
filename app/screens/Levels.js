@@ -17,8 +17,8 @@ import Screen from '../components/Screen'
 const { width } = Dimensions.get("window")
 
 const Levels = ({ navigation }) => {
-  const [selected, setSelected] = useState(null)
-  const { levelList } = useSelector(state => state.workoutFitness)
+  const [displayButton, setDisplayButton] = useState(true)
+  const { levelList, selectedLevel: level } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const addLevel = group => dispatch(selectedLevel(group))
   const setLevelArray = muscleArr => dispatch(setLevelList(muscleArr))
@@ -44,12 +44,12 @@ const Levels = ({ navigation }) => {
 
 
   const handleSelected = (id) => {
-    setSelected(id)
     addLevel(id)
+    setDisplayButton(false)
   }
 
   const activeButton = (key) => {
-    return selected === key ? 'plight' : 'gray'
+    return level === key ? 'plight' : 'gray'
   }
 
   return (
@@ -76,7 +76,15 @@ const Levels = ({ navigation }) => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
-      <BottomNavigationButtons title={BUTTON_TITLES.GENERATE_WORKOUT} navigation={navigation} screenName='GeneratedWorkout' backName='MuscleGroup' style={styles.bottomNav} fontStyles={styles.fontStyles} onPressEvent={workoutGenerator}/>
+      <BottomNavigationButtons 
+        displayButton={displayButton}
+        title={BUTTON_TITLES.GENERATE_WORKOUT} 
+        screenName='GeneratedWorkout' 
+        backName='MuscleGroup' 
+        style={styles.bottomNav} 
+        fontStyles={styles.fontStyles} 
+        onPressEvent={workoutGenerator}
+      />
       </Screen>
   )
 }
