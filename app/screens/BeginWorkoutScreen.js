@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { generateWorkout } from '../redux/action/workout-fitness'
@@ -6,17 +6,18 @@ import { generateWorkout } from '../redux/action/workout-fitness'
 import AppBlock from '../components/AppBlock'
 import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'
-import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import AppModal from '../components/AppModal'
 import Screen from '../components/Screen'
-import LoadingScreen from '../screens/LoadingScreen'
 
 import {colours, sizes} from "../config/theme"
 
-const GeneratedWorkout = ({ navigation }) => {
+const BeginWorkoutScreen = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false)
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const workoutGenerator = workout => dispatch(generateWorkout())
+  const count = 1
 
 
   const Item = ({ title }) => (
@@ -29,9 +30,17 @@ const GeneratedWorkout = ({ navigation }) => {
     return <Item title={item.name} />
   }
 
+  const openTimer = () => {
+    setModalVisible(true)
+  }
+
+  const closeTimer = () => {
+    setModalVisible(false)
+  }
+
   return (
     <Screen style={styles.container}>
-      {levelDetails && <AppText h1 center>{levelDetails.sets} Sets of:</AppText>}
+      <AppText h1 center>{levelDetails.sets} Sets of:</AppText>
       <AppBlock style={styles.scrollContainer}>
       <SafeAreaView
           style={{ paddingVertical: sizes.base * 2 }}
@@ -44,11 +53,9 @@ const GeneratedWorkout = ({ navigation }) => {
         }
         </SafeAreaView>
         </AppBlock>
+        <AppModal modalVisible={modalVisible} close={closeTimer} />
         <View style={styles.border}>
-          <AppButtonBasic title='Refresh' onPress={workoutGenerator}/>
-          <AppButtonBasic title='Back' onPress={() => navigation.navigate('Levels')} />
-          <AppButtonBasic title='Begin Workout' onPress={() => navigation.navigate('BeginWorkoutScreen')} />
-          <AppButtonBasic title='Save' />
+          <AppButtonBasic title={`Complete Set ${count}`} onPress={openTimer} />
         </View>
     </Screen>
   )
@@ -78,4 +85,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default GeneratedWorkout
+export default BeginWorkoutScreen

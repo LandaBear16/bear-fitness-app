@@ -76,7 +76,7 @@ const Levels = ({ navigation }) => {
           </AppBlock>
         </ScrollView>
       </AppBlock>
-      <BottomNavigationButtons title={BUTTON_TITLES.GENERATE_WORKOUT} navigation={navigation} screenName='' backName='MuscleGroup' style={styles.bottomNav} fontStyles={styles.fontStyles} onPressEvent={workoutGenerator}/>
+      <BottomNavigationButtons title={BUTTON_TITLES.GENERATE_WORKOUT} navigation={navigation} screenName='GeneratedWorkout' backName='MuscleGroup' style={styles.bottomNav} fontStyles={styles.fontStyles} onPressEvent={workoutGenerator}/>
       </Screen>
   )
 }

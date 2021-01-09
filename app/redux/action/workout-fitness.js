@@ -2,7 +2,9 @@ import * as ACTION from '../constant/actions'
 import { createAction } from 'redux-actions'
 import { firebase } from '../../firebase/config'
 import _ from 'lodash'
-import { date } from 'yup/lib/locale'
+
+
+import { setGeneratedWorkout } from './generatedWorkout'
 
 const updateSort = createAction(ACTION.UPDATE_TRAINING_GOAL)
 const updateGoals = createAction(ACTION.UPDATE_GOALS)
@@ -12,6 +14,7 @@ const updateMuscleGroupList = createAction(ACTION.SET_MUSCLE_GROUP)
 const updateSelectedMuscleGroup = createAction(ACTION.SELECTED_MUSCLE_GROUP)
 const updateLevelList = createAction(ACTION.SET_LEVELS)
 const updateSelectedLevel = createAction(ACTION.SELECTED_LEVEL)
+const updateLevelDetails = createAction(ACTION.UPDATE_LEVEL_DETAILS)
 
 
 
@@ -59,6 +62,7 @@ export const setLevelList = (list) => (dispatch, getState) => {
 }
 
 export const generateWorkout = () => async (dispatch, getState) => {
+
   const { 
     trainingGoal,
     selectedEquipment,
@@ -91,7 +95,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
     }
   })
 
-  console.log('exerciseLIST', exerciseList)
+
 
   const details = query.data().workout_details
 
@@ -103,11 +107,12 @@ export const generateWorkout = () => async (dispatch, getState) => {
   // const workout = []
 
   const workout = _.shuffle(exerciseList).slice(0, level.number_of_exercises);
+
+  
+  dispatch(updateLevelDetails(level))
+  dispatch(setGeneratedWorkout(workout))
   // console.log('workout', workout)
-  // const workoutGeneratedList = workout.map((exercise) => {
-  //   const exerciseReps = `${level.reps} X ${exercise.name}`
-  //   console.log('exercise', exerciseReps)
-  // })
+  
   console.log('-------------')
 
 }

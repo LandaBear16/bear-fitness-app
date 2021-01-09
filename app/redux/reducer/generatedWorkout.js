@@ -7,9 +7,9 @@ const initialState = {
 
 export default handleActions(
   {
-    [ACTIONS.UPDATE_TRAINING_GOAL]: (state, action) => ({
+    [ACTIONS.UPDATE_GENERATED_WORKOUT]: (state, action) => ({
       ...state,
-      trainingGoal: action.payload.trainingGoal,
+      generatedWorkout: action.payload,
     })
   },
   initialState

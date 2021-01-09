@@ -12,7 +12,8 @@ const initialState = {
   muscleGroupList: null,
   selectedMuscleGroup: '',
   levelList: null,
-  selectedLevel: ''
+  selectedLevel: '',
+  levelDetails: null
 }
 
 export default handleActions(
@@ -48,6 +49,10 @@ export default handleActions(
     [ACTIONS.SELECTED_LEVEL]: (state, action) => ({
       ...state,
       selectedLevel: action.payload
+    }),
+    [ACTIONS.UPDATE_LEVEL_DETAILS]: (state, action) => ({
+      ...state,
+      levelDetails: action.payload
     })
   },
   initialState
