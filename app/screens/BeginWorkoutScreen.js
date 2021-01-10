@@ -70,10 +70,14 @@ const BeginWorkoutScreen = ({ navigation }) => {
     navigation.navigate('Home')
   }
 
+  const handleMessageChange = (newMessage) => {
+    setMessage(newMessage)
+  }
+
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-      <AppText h1 center>{levelDetails.sets} Sets of:</AppText>
+    <AppHeader screenName={SCREEN_NAMES.HOME} refresh={false} backButton={false} save={false} title={`${levelDetails.sets} sets of`} />
       <AppBlock style={styles.scrollContainer}>
       <SafeAreaView
           style={{ paddingVertical: sizes.base * 2 }}
