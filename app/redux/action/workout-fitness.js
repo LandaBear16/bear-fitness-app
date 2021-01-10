@@ -31,6 +31,7 @@ export const setInitialGoals = (goals) => (dispatch, getState) => {
 }
 
 export const selectedEquipmentList = (list) => (dispatch, getState) => {
+console.log("🚀 ~ file: workout-fitness.js ~ line 34 ~ selectedEquipmentList ~ list", list)
   dispatch(updateSelectedEquipmentList(list))
   // const state = getState()
   // console.log('state selected', state)
@@ -78,16 +79,18 @@ export const generateWorkout = () => async (dispatch, getState) => {
   } = getState().workoutFitness
   // console.log('traing', trainingGoal)
   // console.log('equip', selectedEquipment)
-  console.log('selectedMuscleGroup', selectedMuscleGroup)
+  // console.log('selectedMuscleGroup', selectedMuscleGroup)
   // console.log('LEVEL', selectedLevel)
 
   const query = await firebase.firestore().collection("training_goal").doc(trainingGoal).get()
   const exercises = await firebase.firestore().collection("exercise")
-  let exerciseQuery = exercises
+
+  let exerciseQuery
+
   if (selectedMuscleGroup === 'gEYMgi3jiofm2Qd0h2Ev') {
-    exerciseQuery = exerciseQuery.where('equipment', 'array-contains-any', selectedEquipment).get()
+    exerciseQuery = exercises.where('equipment', 'array-contains-any', selectedEquipment).get()
   } else {
-    exerciseQuery = exerciseQuery.where('muscle_group', '==', selectedMuscleGroup).where('equipment', 'array-contains-any', selectedEquipment).get()
+    exerciseQuery = exercises.where('muscle_group', '==', selectedMuscleGroup).where('equipment', 'array-contains-any', selectedEquipment).get()
   }
   const bp = await exerciseQuery
 
@@ -96,6 +99,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
 
  bp.docs.map(doc => {
     const data = doc.data()
+    // console.log('data', data)
     if (data.equipment.length == 1 && _.includes(data.training_goal, trainingGoal)) {
       exerciseList.push(data)
     } else if (data.equipment.length > 1) {
@@ -108,6 +112,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
     }
   })
 
+  // console.log('exerciseList', exerciseList)
 
   const details = query.data().workout_details
 

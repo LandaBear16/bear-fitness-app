@@ -5,20 +5,14 @@ import { LinearGradient } from 'expo-linear-gradient'
 import AppButtonBasic from '../components/AppButtonBasic'
 import Screen from "../components/Screen"
 import colours from "../config/colours"
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import defaultStyles from "../config/defaultStyles"
 
 
 const WelcomeScreen = ({ navigation }) => {
   return (
     <Screen style={styles.screen}>
-        <LinearGradient
-        // Background Linear Gradient
-        colors={['#0f3057', '#00587a', '#008891', '#e7e7de']}
-        start={[1, 0]}
-        end={[0, 1]}
-        locations={[0.0, 0.33, 0.67, 1.0]}
-        style={styles.background}
-      />
+      <LinearGradientScreen/>
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/b-fit-logo.png")} />
         <Text style={styles.caption}>Workouts that suit you</Text>
@@ -37,13 +31,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-  },
-  background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: '100%',
   },
   bgLogo: {
     flex: 1,
@@ -65,7 +52,7 @@ const styles = StyleSheet.create({
   },
   caption: {
     ...defaultStyles.text,
-    color: colours.plightEve,
+    color: colours.plight,
     fontSize: 22,
     paddingTop: 20
   },
