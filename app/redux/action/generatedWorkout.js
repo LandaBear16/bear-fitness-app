@@ -14,7 +14,7 @@ export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
 
 export const getSavedWorkouts = (user) => async (dispatch, getState) => {
 console.log("🚀 ~ file: generatedWorkout.js ~ line 14 ~ getSavedWorkouts ~ user", user)
-  const saved = await firebase.firestore().collection('saved_workouts').where('user', '==', user.uid).get()
+  const saved = await firebase.firestore().collection('saved_workouts').where('user', '==', 'ChlPOwkH61YV9LELK6eTaavdwQD3').get()
   const snapshot = snapshotToArray(saved)
 
   dispatch(updateSavedWorkouts(snapshot))

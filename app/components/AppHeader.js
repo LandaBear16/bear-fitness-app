@@ -12,7 +12,6 @@ import AppText from './AppText'
 import { colours, sizes, fonts } from "../config/theme"
 
 const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
-  const [user, setUser] = useContext(UserContext)
   const [disableSave, setDisableSave] = useState(false)
   const dispatch = useDispatch()
   const navigation = useNavigation()
