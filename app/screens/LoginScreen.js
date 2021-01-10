@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, Image, View } from 'react-native'
 import * as Yup from 'yup'
 import { FirebaseContext } from '../context/FirebaseContext'
 import { UserContext } from '../context/UserContext'
@@ -44,6 +44,7 @@ const LoginScreen = () => {
   }
   return (
     <Screen style={styles.container}>
+    <LinearGradientScreen/>
       <AppForm
         initialValues={{
           email: '',
@@ -79,7 +80,10 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10
-  },
+    width: '100%',
+    flex: 1,
+    padding: 10,
+    justifyContent: 'center'
+  }
 })
 export default LoginScreen
