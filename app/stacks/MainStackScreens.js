@@ -47,7 +47,7 @@ const MainStackScreens = () => {
         fontSize: 22
       }
     }} >
-      <MainTabStack.Screen name='Home' component={WorkoutGeneratorStack} color={colours.primary} size={50} onPress={resetTrainingOptions}/>
+      <MainTabStack.Screen name='Home' component={WorkoutGeneratorStack} color={colours.primary} size={50}/>
       <MainTabStack.Screen name='ProfileScreen' component={ProfileScreen} />
     </MainTabStack.Navigator>
   )

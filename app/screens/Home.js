@@ -25,11 +25,6 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch()
   const resetTrainingOptions = () => dispatch(resetWorkoutOptions())
 
-  useEffect(() => {
-    console.log('boom', )
-    // resetTrainingOptions()
-  }, [])
-
   return (
     <Screen style={styles.screen}>
       <LinearGradientScreen />
