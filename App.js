@@ -24,7 +24,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <ProgressScreen />
+            <WorkoutGeneratorStack />
           </NavigationContainer>
         </Provider>
       </UserProvider>

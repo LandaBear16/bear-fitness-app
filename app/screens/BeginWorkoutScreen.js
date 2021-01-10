@@ -4,6 +4,7 @@ import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react
 import { useSelector, useDispatch } from 'react-redux'
 import { resetWorkoutOptions } from '../redux/action/workout-fitness'
 
+
 import AppBlock from '../components/AppBlock'
 import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'
@@ -23,6 +24,7 @@ const BeginWorkoutScreen = ({ navigation }) => {
   const { levelDetails } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const reset = () => dispatch(resetWorkoutOptions())
+ 
 
 
 

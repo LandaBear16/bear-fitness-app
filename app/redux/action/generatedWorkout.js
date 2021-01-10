@@ -9,3 +9,38 @@ export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
   const state = getState()
   // console.log('state', state)
 }
+
+export const saveWorkout = () => async (dispatch, getState) => {
+  console.log('boom', getState())
+  
+  const { 
+    workoutFitness: {
+      trainingGoal,
+      selectedEquipment,
+      selectedMuscleGroup,
+      levelDetails
+    },
+    generatedWorkout: {
+      generatedWorkout
+    }
+  } = getState()
+
+  // const {
+  //   trainingGoal,
+  //   selectedEquipment,
+  //   selectedMuscleGroup,
+  //   levelDetails
+  // } = getState().workoutFitness
+
+  // console.log({trainingGoal, selectedEquipment, selectedMuscleGroup, levelDetails, generatedWorkout})
+
+
+  // await firebase.firestore().collection('saved_workouts').add({
+  //   equipment: selectedEquipment,
+  //   level: levelDetails,
+  //   muscle_group: selectedMuscleGroup,
+  //   name: 'test1',
+  //   training_goal: trainingGoal,
+  //   workout: generatedWorkout
+  // })
+}

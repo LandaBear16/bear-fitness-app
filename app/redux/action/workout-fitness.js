@@ -108,7 +108,6 @@ export const generateWorkout = () => async (dispatch, getState) => {
     }
   })
 
-console.log('exerciseList', exerciseList)
 
   const details = query.data().workout_details
 
@@ -116,10 +115,11 @@ console.log('exerciseList', exerciseList)
     return item.level === selectedLevel
   })
 
-
+  console.log('level', level)
   // const workout = []
 
   const workout = _.shuffle(exerciseList).slice(0, level.number_of_exercises);
+  console.log("🚀 ~ file: workout-fitness.js ~ line 122 ~ generateWorkout ~ workout", workout)
 
   
   dispatch(updateLevelDetails(level))
