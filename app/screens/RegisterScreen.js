@@ -32,6 +32,7 @@ const RegisterScreen = (props) => {
       console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
 
       setUser({
+        fullName: userInfo.fullName,
         email: userInfo.email,
         uid,
         isLoggedIn: true

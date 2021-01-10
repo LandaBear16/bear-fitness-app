@@ -1,8 +1,9 @@
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import { resetWorkoutOptions } from '../redux/action/workout-fitness'
 import { useDispatch } from 'react-redux'
+import { UserContext } from '../context/UserContext'
 
 import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'
@@ -18,12 +19,14 @@ const { width, height } = Dimensions.get('window')
 
 
 const diameter = circleDiameter(width, height)
-const message = greetingMessage(moment())
 
 
 const Home = ({ navigation }) => {
+  const [user, setUser] = useContext(UserContext)
+  console.log('user', user)
   const dispatch = useDispatch()
   const resetTrainingOptions = () => dispatch(resetWorkoutOptions())
+  const message = greetingMessage(moment(), user.fullName)
 
   const handleOnPress = () => {
     resetTrainingOptions()

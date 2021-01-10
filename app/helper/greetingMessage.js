@@ -1,4 +1,5 @@
 export const greetingMessage = (m, userName) => {
+  
   let messageTime = null
 
   if(!m || !m.isValid()) { return; } //if we can't find a valid or filled moment, we return.
@@ -16,7 +17,7 @@ export const greetingMessage = (m, userName) => {
 		messageTime = "morning";
   }
   
-  const personalisedGreeting = `Good ${messageTime}, Yolanda. 
+  const personalisedGreeting = `Good ${messageTime}, ${userName}. 
   Lets get B-FIT!!!`
 	
 	return personalisedGreeting;

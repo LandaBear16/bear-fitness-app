@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../redux/action/auth'
 import { FirebaseContext } from '../context/FirebaseContext'
@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import SubmitButton from '../components/form/SubmitButton'
 import Screen from '../components/Screen'
 
@@ -43,8 +44,8 @@ const ProfileScreen = () => {
   }
 
   return (
-    <Screen>
-      <Text>Profile Screen</Text>
+    <Screen style={styles.container}>
+    <LinearGradientScreen />
       {user !== null && <AppForm
         initialValues={{
           email: user.email,
@@ -76,5 +77,12 @@ const ProfileScreen = () => {
     </Screen>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  }
+})
 
 export default ProfileScreen
