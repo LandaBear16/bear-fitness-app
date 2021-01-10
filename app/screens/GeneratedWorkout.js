@@ -19,17 +19,16 @@ import Screen from '../components/Screen'
 
 import {colours, sizes} from "../config/theme"
 
-const GeneratedWorkout = ({ navigation }) => {
+const GeneratedWorkout = () => {
+  const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
+  const [displayButton, setDisplayButton] = useState(true)
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
-  const dispatch = useDispatch()
-  const workoutGenerator = workout => dispatch(generateWorkout())
-  const saveWod = () => dispatch(saveWorkout())
 
 
   const Item = ({ title }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{levelDetails.reps} x {title}</Text>
+      <AppText white style={styles.text}>{levelDetails.reps} x {title}</AppText>
     </View>
   )
 
@@ -37,9 +36,8 @@ const GeneratedWorkout = ({ navigation }) => {
     return <Item title={item.name} />
   }
 
-  const addSavedWorkout = () => {
-    console.log('here', )
-    saveWod()
+  const handleMessageChange = (newMessage) => {
+    setMessage(newMessage)
   }
 
   return (
@@ -58,12 +56,15 @@ const GeneratedWorkout = ({ navigation }) => {
         }
         </SafeAreaView>
         </AppBlock>
-        <View style={styles.border}>
-          <AppButtonBasic title='Refresh' onPress={workoutGenerator}/>
-          <AppButtonBasic title='Back' onPress={() => navigation.navigate('Levels')} />
-          <AppButtonBasic title='Begin Workout' onPress={() => navigation.navigate('BeginWorkoutScreen')} />
-          <AppButtonBasic title='Save' onPress={addSavedWorkout} />
-        </View>
+        <BottomNavigationButtons 
+          displayButton={false} 
+          title={BUTTON_TITLES.BEGIN_WORKOUT} 
+          screenName={SCREEN_NAMES.BEGIN_WORKOUT} 
+          message={message}
+          setMessage={handleMessageChange}
+          style={styles.bottomNav} 
+          onPressEvent={null}
+        />
     </Screen>
   )
 }
@@ -80,10 +81,16 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 6
+    borderWidth: 2,
+    borderColor: colours.primary,
+    backgroundColor: colours.primary,
+    padding: 10,
+    borderRadius: 30
   },
-  title: {
+  text: {
     fontSize: 20,
+    backgroundColor: colours.primary,
+    padding: 5
   },
   border: {
     borderWidth: 6,
