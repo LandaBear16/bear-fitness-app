@@ -6,6 +6,7 @@ import { UserProvider } from './app/context/UserContext'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from './app/redux/reducer/index'
+import AppLoading from 'expo-app-loading'
 
 
 import AppStackScreens from './app/stacks/AppStackScreens'
@@ -13,12 +14,31 @@ import TestScreen from './app/screens/TestScreen'
 import WorkoutGeneratorStack from './app/stacks/WorkoutGeneratorStack'
 import ProgressScreen from './app/screens/ProgressScreen'
 
+import { 
+  useFonts,
+  Marvel_400Regular,
+  Marvel_400Regular_Italic,
+  Marvel_700Bold,
+  Marvel_700Bold_Italic 
+} from '@expo-google-fonts/marvel'
+
 
 
 const store = createStore(reducers, applyMiddleware(thunk))
 
 
 export default function App() {
+  let [fontsLoaded, error] = useFonts({
+    Marvel_400Regular,
+    Marvel_400Regular_Italic,
+    Marvel_700Bold,
+    Marvel_700Bold_Italic 
+  })
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <FirebaseProvider>
       <UserProvider>

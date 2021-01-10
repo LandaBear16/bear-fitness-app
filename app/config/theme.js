@@ -38,34 +38,24 @@ const sizes = {
   h1: 26,
   h2: 20,
   h3: 18,
+  h4: 14,
   title: 18,
   header: 16,
   body: 14,
-  caption: 12
+  caption: 12,
+  largeTitle: 38
 };
 
 const fonts = {
-  h1: {
-    fontSize: sizes.h1
-  },
-  h2: {
-    fontSize: sizes.h2
-  },
-  h3: {
-    fontSize: sizes.h3
-  },
-  header: {
-    fontSize: sizes.header
-  },
-  title: {
-    fontSize: sizes.title
-  },
-  body: {
-    fontSize: sizes.body
-  },
-  caption: {
-    fontSize: sizes.caption
-  }
+  largeTitle: { fontFamily: "Marvel_700Bold", fontSize: sizes.largeTitle, lineHeight: 55 },
+  h1: { fontFamily: "Marvel_700Bold", fontSize: sizes.h1, lineHeight: 36 },
+  h2: { fontFamily: "Marvel_700Bold", fontSize: sizes.h2, lineHeight: 30 },
+  h3: { fontFamily: "Marvel_700Bold", fontSize: sizes.h3, lineHeight: 22 },
+  h4: { fontFamily: "Marvel_700Bold", fontSize: sizes.h4, lineHeight: 22 },
+  header: { fontFamily: "Marvel_700Bold", fontSize: sizes.header, lineHeight: 22 },
+  title: { fontFamily: "Marvel_400Regular", fontSize: sizes.title, lineHeight: 30 },
+  body: { fontFamily: "Marvel_400Regular", fontSize: sizes.body, lineHeight: 22 },
+  caption: { fontFamily: "Marvel_400Regular_Italic", fontSize: sizes.caption, lineHeight: 22 },
 }
 
 export { colours, sizes, fonts }
