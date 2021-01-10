@@ -1,5 +1,6 @@
 import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
+import * as MESSAGES from '../common/constants/progressMessage'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
@@ -11,6 +12,8 @@ import AppBlock from '../components/AppBlock'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import AppHeader from '../components/AppHeader'
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import {sizes} from "../config/theme";
 import Screen from '../components/Screen'
 
@@ -46,6 +49,7 @@ const MuscleGroup = ({ navigation }) => {
 
   return (
     <Screen style={styles.container}>
+     <LinearGradientScreen />
     <AppText primary height={20} h1 center bold style={styles.header}>Select the Muscle Group to train:</AppText>
     <AppBlock style={styles.scrollContainer}>
         <ScrollView
