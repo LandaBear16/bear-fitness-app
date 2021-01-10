@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { firebase } from '../firebase/config'
-import { updateTrainingGoal, updateGoals, setInitialGoals } from '../redux/action/workout-fitness'
+import { updateTrainingGoal, setInitialGoals } from '../redux/action/workout-fitness'
 import { snapshotToArray } from '../helper/snapshotToArray'
 
 import AppBlock from '../components/AppBlock'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import { sizes} from "../config/theme"
 import Screen from '../components/Screen'
 
@@ -50,7 +51,8 @@ const TrainingGoal = () => {
 
   return (
     <Screen style={styles.container}>
-      <AppText primary height={20} h1 center bold style={styles.header}>Select your Training Goal:</AppText>
+    <LinearGradientScreen />
+      <AppText neonBlue height={20} h1 center style={styles.header}>Select your Training Goal:</AppText>
       <AppBlock style={styles.scrollContainer}>
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -87,6 +89,7 @@ const TrainingGoal = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%'
+
   },
   scrollContainer: {
     flex: 9,

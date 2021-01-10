@@ -13,6 +13,7 @@ import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
 import WorkoutGeneratorStack from './app/stacks/WorkoutGeneratorStack'
 import ProgressScreen from './app/screens/ProgressScreen'
+import MainStackScreens from './app/stacks/MainStackScreens'
 
 import { 
   useFonts,
@@ -44,7 +45,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <WorkoutGeneratorStack />
+            <MainStackScreens />
           </NavigationContainer>
         </Provider>
       </UserProvider>
