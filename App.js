@@ -45,7 +45,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <MainStackScreens />
+            <AppStackScreens />
           </NavigationContainer>
         </Provider>
       </UserProvider>

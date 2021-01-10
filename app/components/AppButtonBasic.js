@@ -3,18 +3,18 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
 
 import AppText from './AppText'
-import colours from "../config/colours";
+import {colours} from "../config/theme";
 
 const AppButtonBasic = ({ title, onPress, colour = "primary", textColour = 'white', marginVertical = 10, style, fontStyles, displayButton = false}) => {
   const buttonStyles = [styles.button, style]
   const textStyles = [styles.text, fontStyles]
   return (
     <TouchableOpacity
-      style={[{ backgroundColor: displayButton ? colours.light : colours[colour], marginVertical }, buttonStyles] }
+      style={[{ marginVertical }, buttonStyles] }
       onPress={onPress}
       disabled={displayButton}
     >
-      <AppText largeTitle neonBlue style={[{ color: colours[textColour]}, textStyles]}>{title}</AppText>
+      <AppText h1 neonBlue style={[{ color: colours[textColour]}]}>{title}</AppText>
     </TouchableOpacity>
   );
 }

@@ -6,6 +6,7 @@ import { UserContext } from '../context/UserContext'
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import SubmitButton from '../components/form/SubmitButton'
 import Screen from '../components/Screen'
 
@@ -41,40 +42,6 @@ const LoginScreen = () => {
       console.error(error)
     }
   }
-
-//   const onLoginPress = ({ email, password }) => {
-//     firebase
-//         .auth()
-//         .signInWithEmailAndPassword(email, password)
-//         .then((response) => {
-
-//             const uid = response.user.uid
-//             const usersRef = firebase.firestore().collection('users')
-//             usersRef
-//                 .doc(uid)
-//                 .get()
-//                 .then(firestoreDocument => {
-
-//                     if (!firestoreDocument.exists) {
-//                         alert("User does not exist anymore.")
-//                         return;
-//                     }
-//                     // const user = firestoreDocument.data()
-//                     const user = firebase.auth().currentUser
-//                     console.log('user', user)
-//                     setMessage("User logged in succesfully 1")
-//                 })
-//                 .catch(error => {
-//                     console.log('error', error)
-//                     setMessage("User Not logged in")
-//                     alert(error)
-//                 });
-//         })
-//         .catch(error => {
-//             alert(error)
-//         })
-// }
-
   return (
     <Screen style={styles.container}>
       <AppForm

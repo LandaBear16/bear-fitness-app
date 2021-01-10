@@ -3,8 +3,9 @@ import { StyleSheet, View, Image, Text } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 
 import AppButtonBasic from '../components/AppButtonBasic'
+import AppText from '../components/AppText'
 import Screen from "../components/Screen"
-import colours from "../config/colours"
+import {colours} from "../config/theme"
 import LinearGradientScreen from '../components/LinearGradientScreen'
 import defaultStyles from "../config/defaultStyles"
 
@@ -15,7 +16,7 @@ const WelcomeScreen = ({ navigation }) => {
       <LinearGradientScreen/>
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/b-fit-logo.png")} />
-        <Text style={styles.caption}>Workouts that suit you</Text>
+        <AppText h2 neonBlue style={styles.caption}>Workouts that suit you</AppText>
       </View>
       <View style={styles.buttonsContainer}>
         <AppButtonBasic title="Sign In" onPress={() => navigation.navigate("Login")} />
@@ -51,10 +52,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   caption: {
-    ...defaultStyles.text,
-    color: colours.plight,
-    fontSize: 22,
-    paddingTop: 20
+    fontSize: 30,
+    paddingTop: 20,
+    fontFamily: 'Marvel_700Bold',
+    color: colours.neonBlue
   },
 });
 

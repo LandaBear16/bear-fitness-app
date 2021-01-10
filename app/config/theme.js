@@ -48,7 +48,7 @@ const sizes = {
 };
 
 const fonts = {
-  largeTitle: { fontFamily: "Marvel_700Bold", fontSize: sizes.largeTitle, lineHeight: 55 },
+  largeTitle: { fontFamily: "Marvel_700Bold", fontSize: sizes.largeTitle, lineHeight: 35 },
   h1: { fontFamily: "Marvel_700Bold", fontSize: sizes.h1, lineHeight: 36 },
   h2: { fontFamily: "Marvel_700Bold", fontSize: sizes.h2, lineHeight: 30 },
   h3: { fontFamily: "Marvel_700Bold", fontSize: sizes.h3, lineHeight: 22 },

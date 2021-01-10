@@ -5,11 +5,8 @@ import * as TITLE from '../common/constants/titleScreenNames'
 import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { generateWorkout } from '../redux/action/workout-fitness'
-import { saveWorkout } from '../redux/action/generatedWorkout'
 
 import AppBlock from '../components/AppBlock'
-import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import AppHeader from '../components/AppHeader'
@@ -21,7 +18,6 @@ import {colours, sizes} from "../config/theme"
 
 const GeneratedWorkout = () => {
   const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
-  const [displayButton, setDisplayButton] = useState(true)
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
 
