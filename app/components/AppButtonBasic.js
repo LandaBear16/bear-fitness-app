@@ -6,7 +6,6 @@ import AppText from './AppText'
 import colours from "../config/colours";
 
 const AppButtonBasic = ({ title, onPress, colour = "primary", textColour = 'white', marginVertical = 10, style, fontStyles, displayButton = false}) => {
-console.log("🚀 ~ file: AppButtonBasic.js ~ line 8 ~ AppButtonBasic ~ fontStyles", fontStyles)
   const buttonStyles = [styles.button, style]
   const textStyles = [styles.text, fontStyles]
   return (
@@ -15,7 +14,6 @@ console.log("🚀 ~ file: AppButtonBasic.js ~ line 8 ~ AppButtonBasic ~ fontStyl
       onPress={onPress}
       disabled={displayButton}
     >
-      {/* <Text style={[{ color: colours[textColour]}, textStyles]}>{title}</Text> */}
       <AppText largeTitle neonBlue style={[{ color: colours[textColour]}, textStyles]}>{title}</AppText>
     </TouchableOpacity>
   );

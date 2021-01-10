@@ -18,7 +18,6 @@ const { width, height } = Dimensions.get('window')
 
 const diameter = circleDiameter(width, height)
 const message = greetingMessage(moment())
-console.log("🚀 ~ file: Home.js ~ line 18 ~ message", message)
 
 
 const Home = ({ navigation }) => {

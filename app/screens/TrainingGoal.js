@@ -12,6 +12,7 @@ import AppBlock from '../components/AppBlock'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import AppHeader from '../components/AppHeader'
 import LinearGradientScreen from '../components/LinearGradientScreen'
 import { colours, sizes, fonts } from "../config/theme"
 import Screen from '../components/Screen'
@@ -65,7 +66,8 @@ const TrainingGoal = () => {
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-      <AppText neonBlue height={20} h1 center style={styles.header}>Select your Training Goal:</AppText>
+      <AppHeader />
+      {/* <AppText neonBlue height={20} h1 center style={styles.header}>Select your Training Goal:</AppText> */}
       <AppBlock style={styles.scrollContainer}>
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -107,9 +109,6 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 9,
-  },
-  header: {
-    paddingVertical: 30
   },
   goals: {
     flexWrap: "wrap",
