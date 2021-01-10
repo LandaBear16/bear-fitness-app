@@ -1,4 +1,8 @@
-import React from 'react'
+import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
+import * as SCREEN_NAMES from '../common/constants/ScreenNames'
+import * as MESSAGES from '../common/constants/progressMessage'
+import * as TITLE from '../common/constants/titleScreenNames'
+import React, { useState } from 'react'
 import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { generateWorkout } from '../redux/action/workout-fitness'
@@ -8,8 +12,10 @@ import AppBlock from '../components/AppBlock'
 import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
+import AppHeader from '../components/AppHeader'
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import Screen from '../components/Screen'
-import LoadingScreen from '../screens/LoadingScreen'
+
 
 import {colours, sizes} from "../config/theme"
 
@@ -38,6 +44,7 @@ const GeneratedWorkout = ({ navigation }) => {
 
   return (
     <Screen style={styles.container}>
+    <LinearGradientScreen />
       {levelDetails && <AppText h1 center>{levelDetails.sets} Sets of:</AppText>}
       <AppBlock style={styles.scrollContainer}>
       <SafeAreaView

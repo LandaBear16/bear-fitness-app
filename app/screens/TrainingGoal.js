@@ -58,9 +58,7 @@ const TrainingGoal = () => {
   }
 
   const handleMessageChange = (newMessage) => {
-  console.log("🚀 ~ file: TrainingGoal.js ~ line 54 ~ handleMessageChange ~ newMessage", newMessage)
     setMessage(newMessage)
-    console.log('message', message)
   }
 
 

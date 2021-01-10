@@ -15,7 +15,7 @@ import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import AppHeader from '../components/AppHeader'
 import LinearGradientScreen from '../components/LinearGradientScreen'
-import {sizes} from "../config/theme";
+import { colours, sizes} from "../config/theme";
 import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
@@ -59,7 +59,7 @@ const MuscleGroup = () => {
   return (
     <Screen style={styles.container}>
      <LinearGradientScreen />
-     <AppHeader screenName={SCREEN_NAMES.MUSCLE_GROUP} refresh={false} backButton={true} save={false} title={TITLE.MUSCLE_GROUP_TITLE}/>
+     <AppHeader screenName={SCREEN_NAMES.EQUIPMENT_LIST} refresh={false} backButton={true} save={false} title={TITLE.MUSCLE_GROUP_TITLE}/>
     <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -72,7 +72,7 @@ const MuscleGroup = () => {
                 onPress={() => handleSelected(group.id)}
               >
                 <AppCard center middle shadow colour={activeButton(group.id)} style={styles.goal} >
-                  <AppText dark height={20} size={18}>
+                  <AppText dark height={20} size={18} style={{ color: activeText(group.id)}}>
                     {group.item.name}
                   </AppText>
                 </AppCard>
