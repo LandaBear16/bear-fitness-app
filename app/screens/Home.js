@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
+import { resetWorkoutOptions } from '../redux/action/workout-fitness'
+import { useDispatch } from 'react-redux'
 
 import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'
@@ -20,6 +22,14 @@ console.log("🚀 ~ file: Home.js ~ line 18 ~ message", message)
 
 
 const Home = ({ navigation }) => {
+  const dispatch = useDispatch()
+  const resetTrainingOptions = () => dispatch(resetWorkoutOptions())
+
+  useEffect(() => {
+    console.log('boom', )
+    // resetTrainingOptions()
+  }, [])
+
   return (
     <Screen style={styles.screen}>
       <LinearGradientScreen />

@@ -2,6 +2,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { resetWorkoutOptions } from '../redux/action/workout-fitness'
+import { useDispatch } from 'react-redux'
 
 import { colours } from '../config/theme'
 
@@ -11,6 +13,8 @@ import ProfileScreen from '../screens/ProfileScreen'
 
 const MainStackScreens = () => {
   const MainTabStack = createBottomTabNavigator()
+  const dispatch = useDispatch()
+  const resetTrainingOptions = () => dispatch(resetWorkoutOptions())
 
   return (
     <MainTabStack.Navigator 
@@ -43,7 +47,7 @@ const MainStackScreens = () => {
         fontSize: 22
       }
     }} >
-      <MainTabStack.Screen name='Home' component={WorkoutGeneratorStack} color={colours.primary} size={50}/>
+      <MainTabStack.Screen name='Home' component={WorkoutGeneratorStack} color={colours.primary} size={50} onPress={resetTrainingOptions}/>
       <MainTabStack.Screen name='ProfileScreen' component={ProfileScreen} />
     </MainTabStack.Navigator>
   )

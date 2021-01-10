@@ -1,8 +1,9 @@
 import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
+import * as MESSAGES from '../common/constants/progressMessage'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import { firebase } from '../firebase/config'
 import { updateTrainingGoal, setInitialGoals } from '../redux/action/workout-fitness'
 import { snapshotToArray } from '../helper/snapshotToArray'
@@ -12,13 +13,14 @@ import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import LinearGradientScreen from '../components/LinearGradientScreen'
-import { sizes} from "../config/theme"
+import { colours, sizes, fonts } from "../config/theme"
 import Screen from '../components/Screen'
 
 
 const { width } = Dimensions.get("window")
 
 const TrainingGoal = () => {
+  const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
   const [displayButton, setDisplayButton] = useState(true)
   const { goals, trainingGoal } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -40,12 +42,23 @@ const TrainingGoal = () => {
 
   const handleSelected = (id) => {
     addTrainingGoal(id)
+    setMessage(MESSAGES.GREAT_SELECTION)
     setDisplayButton(false)
   }
 
 
   const activeButton = (key) => {
-    return trainingGoal === key ? 'plight' : 'gray'
+    return trainingGoal === key ? 'primary' : 'gray'
+  }
+
+  const activeText = (key) => {
+    return trainingGoal === key ? colours.white : colours.primary
+  }
+
+  const handleMessageChange = (newMessage) => {
+  console.log("🚀 ~ file: TrainingGoal.js ~ line 54 ~ handleMessageChange ~ newMessage", newMessage)
+    setMessage(newMessage)
+    console.log('message', message)
   }
 
 
@@ -65,7 +78,7 @@ const TrainingGoal = () => {
                   onPress={() => handleSelected(goal.id)}
                 >
                   <AppCard center middle shadow colour={activeButton(goal.id)} style={styles.goal} >
-                    <AppText dark height={20} size={18}>
+                    <AppText primary height={20} size={18} style={{ color: activeText(goal.id)}}>
                       {goal.item.name}
                     </AppText>
                   </AppCard>
@@ -78,7 +91,8 @@ const TrainingGoal = () => {
           displayButton={displayButton} 
           title={BUTTON_TITLES.NEXT} 
           screenName='EquipmentList' 
-          backName='Home' 
+          message={message}
+          setMessage={handleMessageChange}
           style={styles.bottomNav} 
           onPressEvent={null}
         />

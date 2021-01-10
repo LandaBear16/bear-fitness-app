@@ -67,6 +67,7 @@ export const resetWorkoutOptions = () => (dispatch, getState) => {
   dispatch(selectedEquipmentList([]))
   dispatch(selectedMuscleGroup(''))
   dispatch(selectedLevel(''))
+  console.log('state', getState().workoutFitness)
 }
 
 export const generateWorkout = () => async (dispatch, getState) => {

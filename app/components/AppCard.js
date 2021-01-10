@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     borderWidth: sizes.borderWidth,
     borderColor: colours.primary,
     padding: sizes.base + 4,
-    marginBottom: sizes.base
+    marginBottom: sizes.base,
   }
 })
 

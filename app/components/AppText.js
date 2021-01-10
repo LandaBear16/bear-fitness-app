@@ -78,7 +78,7 @@ export default class Typography extends Component {
       gray && styles.gray,
       style // rewrite predefined styles
     ];
-
+    
     return (
       <Text style={textStyles} {...props}>
         {children}
