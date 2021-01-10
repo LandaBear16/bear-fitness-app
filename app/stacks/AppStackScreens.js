@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext'
 
 import AuthStackScreens from './AuthStackScreens'
 import Home from '../screens/Home'
-import WorkoutGeneratorStack from './WorkoutGeneratorStack'
+import MainStackScreens from './MainStackScreens'
 
 const AppStackScreens = () => {
   const AppStack = createStackNavigator()
@@ -14,7 +14,7 @@ const AppStackScreens = () => {
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }} >
     {user.isLoggedIn ? (
-        <AppStack.Screen name="Home" component={WorkoutGeneratorStack} />
+        <AppStack.Screen name="Home" component={MainStackScreens} />
     ) : (
       <AppStack.Screen name="Auth" component={AuthStackScreens} />
     )}

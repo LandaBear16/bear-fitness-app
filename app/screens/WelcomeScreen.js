@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, View, Image, Text } from "react-native"
-import { LinearGradient } from 'expo-linear-gradient'
+
 
 import AppButtonBasic from '../components/AppButtonBasic'
 import AppText from '../components/AppText'

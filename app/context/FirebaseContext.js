@@ -26,7 +26,26 @@ const Firebase = {
     } catch (error) {
       console.error(error)
     }
-  }
+  },
+
+  createUser: async (user) => {
+    try {
+        await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+        const uid = Firebase.getCurrentUser().uid;
+
+        await db.collection("users").doc(uid).set({
+            id: uid,
+            fullName: user.fullName,
+            email: user.email,
+        });
+
+        delete user.password;
+
+        return { ...user, uid };
+    } catch (error) {
+        console.log("Error @createUser: ", error.message);
+    }
+},
 }
 
 const FirebaseProvider = (props) => {

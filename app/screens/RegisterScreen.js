@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Image } from 'react-native'
 import * as Yup from 'yup'
-import { firebase } from '../firebase/config'
+import { FirebaseContext } from '../context/FirebaseContext'
+import { UserContext } from '../context/UserContext'
 
 
 import AppForm from '../components/form/AppForm'
 import AppFormField from '../components/AppFormField'
+import LinearGradientScreen from '../components/LinearGradientScreen'
 import SubmitButton from '../components/form/SubmitButton'
 import Screen from '../components/Screen';
 
@@ -16,35 +18,32 @@ const validationSchema = Yup.object().shape({
 })
 
 const RegisterScreen = (props) => {
-  const onRegisterPress = ({ email, password, fullName }) => {
-    
-    firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((response) => {
-            const uid = response.user.uid
-            const data = {
-                id: uid,
-                email,
-                fullName,
-            };
-            const usersRef = firebase.firestore().collection('users')
-            usersRef
-                .doc(uid)
-                .set(data)
-                .then(() => {
-                  console.log('user registered', data)
-                })
-                .catch((error) => {
-                    alert(error)
-                });
-        })
-        .catch((error) => {
-            alert(error)
-    });
+  const firebase = useContext(FirebaseContext)
+  const [user, setUser] = useContext(UserContext)
+
+  const onRegisterPress = async (user) => {
+    try {
+      await firebase.createUser(user)
+
+      const uid = firebase.getCurrentUser().uid
+      console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
+
+      const userInfo = await firebase.getUserInfo(uid)
+      console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
+
+      setUser({
+        email: userInfo.email,
+        uid,
+        isLoggedIn: true
+      })
+
+    } catch (error) {
+      console.error(error)
+    }
 }
   return (
     <Screen style={styles.container}>
+    <LinearGradientScreen/>
       <AppForm
         initialValues={{
           fullName: '',
@@ -90,7 +89,9 @@ const RegisterScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10
+    flex: 1,
+    padding: 10,
+    justifyContent: 'center',
   },
 })
 
