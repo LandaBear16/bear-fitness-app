@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { colours } from '../config/theme'
 
 import AppBlock from './AppBlock'
 import AppText from './AppText'
@@ -24,7 +25,7 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
       const secondsLeft = Math.round((then - Date.now()) / 1000)
 
       if(secondsLeft < 0) {
-        clearInterval(countdown)
+        clearTimer()
         return
       }
 
@@ -36,7 +37,7 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
     
     const minutes = Math.floor(seconds / 60)
     const remainderSeconds = seconds % 60
-    const display = `${minutes}: ${remainderSeconds}`
+    const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`
     setDisplay(display)
     console.log(minutes, remainderSeconds)
   }
@@ -50,13 +51,13 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
 
   return (
     <AppBlock flex={false} style={styles.timerContainer}>
-      <AppText center>Rest for</AppText>
-      <AppText center>{display}</AppText>
+      <AppText primary h1 center>Rest for</AppText>
+      <AppText primary h1 center>{display}</AppText>
       <TouchableHighlight
-        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+        style={{ ...styles.openButton }}
         onPress={clearTimer}
       >
-        <Text style={styles.textStyle}>Skip Timer</Text>
+        <AppText white bold center style={styles.textStyle}>Skip Timer</AppText>
       </TouchableHighlight>
     </AppBlock>
   )
@@ -64,11 +65,16 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
 
 const styles = StyleSheet.create({
   timerContainer: {
-    height: 50,
-    // borderWidth: 6,
-    // borderColor: "#20232a",
-    // borderRadius: 6,
-  }
+    height: 100,
+    width: 100
+  },
+  openButton: {
+    backgroundColor: colours.primary,
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 10,
+    elevation: 2
+  },
 })
 
 export default CountdownTimer

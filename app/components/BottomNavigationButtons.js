@@ -4,13 +4,15 @@ import { useNavigation } from '@react-navigation/native'
 
 import {colours, sizes, fonts} from "../config/theme"
 
-const BottomNavigationButtons = ({ title, screenName, message, setMessage, style, fontStyles, onPressEvent, displayButton }) => {
+const BottomNavigationButtons = ({ title, screenName, message, setMessage, style, fontStyles, onPressEvent, displayButton, stopNavigation = false }) => {
   
   const navigation = useNavigation()
 
 
 const handleOnPress = () => {
-  if (!displayButton) {
+  if (stopNavigation) {
+    onPressEvent()
+  } else if (!displayButton) {
     if (onPressEvent !== null) {
       onPressEvent()
     }
@@ -43,16 +45,5 @@ const handleOnPress = () => {
 </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    height: '25%',
-    paddingHorizontal: sizes.base * 2,
-    marginBottom: sizes.base * 3.5,
-    backgroundColor: colours.light,
-  }
-})
 
 export default BottomNavigationButtons

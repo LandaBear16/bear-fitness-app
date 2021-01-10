@@ -7,11 +7,9 @@ import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react
 import { useSelector, useDispatch } from 'react-redux'
 import { resetWorkoutOptions } from '../redux/action/workout-fitness'
 
-
 import AppBlock from '../components/AppBlock'
-import AppButtonBasic from '../components/AppButtonBasic'
-import AppText from '../components/AppText'
 import AppModal from '../components/AppModal'
+import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import AppHeader from '../components/AppHeader'
 import LinearGradientScreen from '../components/LinearGradientScreen'
@@ -20,25 +18,21 @@ import Screen from '../components/Screen'
 
 import {colours, sizes} from "../config/theme"
 
-
-
 const BeginWorkoutScreen = ({ navigation }) => {
   const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
   const [modalVisible, setModalVisible] = useState(false)
   const [setCount, increaseSetCount] = useState(1)
+  const [displayButton, setDisplayButton] = useState(true)
   const [buttonName, setButtonName] = useState(`${BUTTON_TITLES.COMPLETE_SET} ${setCount}`)
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
   const reset = () => dispatch(resetWorkoutOptions())
- 
 
 
-
-
-  const Item = ({ title, navgation }) => (
+  const Item = ({ title }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>{levelDetails.reps} x {title}</Text>
+      <AppText white style={styles.text}>{levelDetails.reps} x {title}</AppText>
     </View>
   )
 
@@ -77,7 +71,7 @@ const BeginWorkoutScreen = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-    <AppHeader screenName={SCREEN_NAMES.HOME} refresh={false} backButton={false} save={false} title={`${levelDetails.sets} sets of`} />
+      {levelDetails && <AppHeader screenName={SCREEN_NAMES.LEVELS} refresh={false} backButton={false} save={false} title={`${levelDetails.sets} sets of`} />}
       <AppBlock style={styles.scrollContainer}>
       <SafeAreaView
           style={{ paddingVertical: sizes.base * 2 }}
@@ -91,14 +85,27 @@ const BeginWorkoutScreen = ({ navigation }) => {
         </SafeAreaView>
         </AppBlock>
         <AppModal modalVisible={modalVisible} close={closeTimer} restPeriod={levelDetails.rest_per_set}/>
-        <View style={styles.border}>
-        {console.log('count', setCount < levelDetails.sets)}
         {setCount <= levelDetails.sets
-        ? <AppButtonBasic title={buttonName} onPress={openTimer}  />
-        : <AppButtonBasic title={BUTTON_TITLES.COMPLETE_WORKOUT} onPress={handleCompleteWorkout}  />
+        ? <BottomNavigationButtons 
+          displayButton={false} 
+          title={buttonName} 
+          screenName='Home' 
+          stopNavigation={true}
+          message={message}
+          setMessage={handleMessageChange}
+          style={styles.bottomNav} 
+          onPressEvent={openTimer}
+        />
+        : <BottomNavigationButtons 
+          displayButton={false} 
+          title={BUTTON_TITLES.COMPLETE_WORKOUT} 
+          screenName='Home' 
+          message={message}
+          setMessage={handleMessageChange}
+          style={styles.bottomNav} 
+          onPressEvent={handleCompleteWorkout}
+        />
         }
-          
-        </View>
     </Screen>
   )
 }
@@ -115,10 +122,16 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 6
+    borderWidth: 2,
+    borderColor: colours.primary,
+    backgroundColor: colours.primary,
+    padding: 10,
+    borderRadius: 30
   },
-  title: {
+  text: {
     fontSize: 20,
+    backgroundColor: colours.primary,
+    padding: 5
   },
   border: {
     borderWidth: 6,
