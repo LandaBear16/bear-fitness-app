@@ -68,7 +68,7 @@ const Levels = () => {
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-    <AppText primary height={20} h1 center bold style={styles.header}>Select your Fitness Level:</AppText>
+    <AppHeader screenName={SCREEN_NAMES.MUSCLE_GROUP} refresh={false} backButton={true} save={false} title={TITLE.LEVEL_TITLE} />
     <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
