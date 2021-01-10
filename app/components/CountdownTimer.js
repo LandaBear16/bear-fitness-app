@@ -12,7 +12,7 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
   const [countdown, setCountdown] = useState(null)
 
   useEffect(() => {
-  //  timer(restPeriod)
+   timer(restPeriod)
   }, [])
 
   const timer = (seconds) => {
