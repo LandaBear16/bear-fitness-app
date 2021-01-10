@@ -1,3 +1,4 @@
+import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import { resetWorkoutOptions } from '../redux/action/workout-fitness'
@@ -24,12 +25,17 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch()
   const resetTrainingOptions = () => dispatch(resetWorkoutOptions())
 
+  const handleOnPress = () => {
+    resetTrainingOptions()
+    navigation.navigate(SCREEN_NAMES.TRAINING_GOALS)
+  }
+
   return (
     <Screen style={styles.screen}>
       <LinearGradientScreen />
       <AppText largeTitle neonBlue center style={styles.message} >{message}</AppText>
       <View style={styles.buttonContainer}>
-        <AppButtonBasic title='Generate Workout' onPress={() => navigation.navigate('TrainingGoals')} style={styles.round} fontStyles={styles.text} />
+        <AppButtonBasic title='Generate Workout' onPress={handleOnPress} style={styles.round} fontStyles={styles.text} />
       </View>
     </Screen>
   )

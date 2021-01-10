@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
-import AppBlock from '../components/AppBlock'
-import AppButtonBasic from '../components/AppButtonBasic'
 
 import {colours, sizes, fonts} from "../config/theme"
 
@@ -13,7 +10,6 @@ const BottomNavigationButtons = ({ title, screenName, message, setMessage, style
 
 
 const handleOnPress = () => {
-  console.log('displ', displayButton)
   if (!displayButton) {
     if (onPressEvent !== null) {
       onPressEvent()
@@ -25,10 +21,6 @@ const handleOnPress = () => {
 }
 
   return (
-    // <AppBlock style={styles.container}>
-    //   {backName !== null && <AppButtonBasic title='Back' onPress={() => navigation.navigate(backName) } style={style} fontStyles={fontStyles}/> }
-    //   <AppButtonBasic title={title} onPress={handleOnPress} style={style} fontStyles={fontStyles} displayButton={displayButton}/> 
-    // </AppBlock>
     <View style={{ flex: 1, flexDirection: 'row', paddingVertical: sizes.padding }}>
     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingHorizontal: sizes.padding }}>
         <Text style={{ flex: 1, color: colours.primary, ...fonts.h3 }}>{message}</Text>

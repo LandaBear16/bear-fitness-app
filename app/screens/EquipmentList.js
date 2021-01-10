@@ -1,5 +1,6 @@
 import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
+import * as MESSAGES from '../common/constants/progressMessage'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
@@ -11,12 +12,15 @@ import AppBlock from '../components/AppBlock'
 import AppCard from '../components/AppCard'
 import AppText from '../components/AppText'
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
-import { sizes} from "../config/theme"
+import AppHeader from '../components/AppHeader'
+import LinearGradientScreen from '../components/LinearGradientScreen'
+import { colours, sizes} from "../config/theme"
 import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
 const EquipmentList = ({ navigation }) => {
+  const [message, setMessage] = useState(MESSAGES.SELECT_MORE)
   const [displayButton, setDisplayButton] = useState(true)
   const { equipmentList, selectedEquipment } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -48,12 +52,21 @@ const EquipmentList = ({ navigation }) => {
 
 
   const activeButton = (key) => {
-    return selectedEquipment.includes(key) ? 'plight' : 'gray'
+    return selectedEquipment.includes(key) ? 'primary' : 'gray'
   }
+
+  const activeText = (key) => {
+    return selectedEquipment.includes(key) ? colours.white : colours.primary
+  }
+
+  const handleMessageChange = (newMessage) => {
+      setMessage(newMessage)
+    }
 
   return (
     <Screen style={styles.container}>
-    <AppText primary height={20} h1 center bold style={styles.header}>Select your Equipment:</AppText>
+    <LinearGradientScreen />
+    <AppHeader screenName={SCREEN_NAMES.TRAINING_GOALS} refresh={false} backButton={true} save={false} />
     <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -66,7 +79,7 @@ const EquipmentList = ({ navigation }) => {
                 onPress={() => handleSelected(equipment.id)}
               >
                 <AppCard center middle shadow colour={activeButton(equipment.id)} style={styles.goal} >
-                  <AppText dark height={20} size={18}>
+                  <AppText dark height={20} size={18} style={{ color: activeText(equipment.id)}}>
                     {equipment.item.name}
                   </AppText>
                 </AppCard>
@@ -79,7 +92,8 @@ const EquipmentList = ({ navigation }) => {
         displayButton={displayButton}
         title={BUTTON_TITLES.NEXT} 
         screenName='MuscleGroup' 
-        backName='TrainingGoals' 
+        message={message}
+        setMessage={handleMessageChange}
         style={styles.bottomNav}
         onPressEvent={null}
       />
@@ -93,6 +107,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 9,
+    paddingTop: 10
   },
   header: {
     paddingVertical: 30
