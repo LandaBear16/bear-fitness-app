@@ -15,9 +15,6 @@ const App = ({ modalVisible, close, restPeriod }) => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-        }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -31,13 +28,12 @@ const App = ({ modalVisible, close, restPeriod }) => {
 
 const styles = StyleSheet.create({
   centeredView: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22
   },
   modalView: {
-    margin: 20,
+    margin: 200,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 40,

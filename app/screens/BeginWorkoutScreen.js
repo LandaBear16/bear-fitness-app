@@ -70,11 +70,12 @@ const BeginWorkoutScreen = ({ navigation }) => {
 
   return (
     <Screen style={styles.container}>
+     <AppModal modalVisible={modalVisible} close={closeTimer} restPeriod={levelDetails.rest_per_set}/>
     <LinearGradientScreen />
       {levelDetails && <AppHeader screenName={SCREEN_NAMES.LEVELS} refresh={false} backButton={false} save={false} title={`${levelDetails.sets} sets of`} />}
       <AppBlock style={styles.scrollContainer}>
       <SafeAreaView
-          style={{ paddingVertical: sizes.base * 2 }}
+          style={[{ paddingVertical: sizes.base * 2 }]}
         >
         { generatedWorkout && <FlatList
           data={generatedWorkout}
@@ -83,8 +84,9 @@ const BeginWorkoutScreen = ({ navigation }) => {
         />
         }
         </SafeAreaView>
+        
         </AppBlock>
-        <AppModal modalVisible={modalVisible} close={closeTimer} restPeriod={levelDetails.rest_per_set}/>
+       
         {setCount <= levelDetails.sets
         ? <BottomNavigationButtons 
           displayButton={false} 
@@ -106,13 +108,17 @@ const BeginWorkoutScreen = ({ navigation }) => {
           onPressEvent={handleCompleteWorkout}
         />
         }
+       
     </Screen>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%'
+    flex: 1,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   scrollContainer: {
     flex: 9,
