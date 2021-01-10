@@ -3,7 +3,8 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   generatedWorkout: null,
-  savedWorkouts: null
+  savedWorkouts: null,
+  selectedWorkout: ''
 }
 
 export default handleActions(
@@ -15,6 +16,10 @@ export default handleActions(
     [ACTIONS.UPDATE_SAVED_WORKOUTS]: (state, action) => ({
       ...state,
       savedWorkouts: action.payload,
+    }),
+    [ACTIONS.SET_SELECTED_WORKOUT]: (state, action) => ({
+      ...state,
+      selectedWorkout: action.payload,
     })
   },
   initialState

@@ -1,6 +1,8 @@
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import React, { useContext } from 'react'
 import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteWorkout } from '../redux/action/generatedWorkout'
 import { UserContext } from '../context/UserContext'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
@@ -11,8 +13,15 @@ import Screen from '../components/Screen'
 
 import {colours} from '../config/theme'
 
-const SaveWorkoutModal = ({ modalVisible, toggle, navigation }) => {
+const SaveWorkoutModal = ({ modalVisible, toggle }) => {
   const [user, setUser] = useContext(UserContext)
+  const dispatch = useDispatch()
+  const deleteSelectedWorkout = () => dispatch(deleteWorkout())
+
+  const handleDelete = () => {
+    deleteSelectedWorkout()
+    toggle()
+  }
   
   return (
       <Modal
@@ -24,11 +33,19 @@ const SaveWorkoutModal = ({ modalVisible, toggle, navigation }) => {
         <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => { navigation.navigate('Saved Workouts') }}
+          onPress={toggle}
         >
           <MaterialIcons name="keyboard-arrow-left" size={24} color={colours.primary} />
         </TouchableOpacity>
-
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleDelete}
+        >
+          <MaterialIcons name="delete" size={24} color={colours.primary} />
+        </TouchableOpacity>
+        </View>
+        <View>
+          <AppText neonBlue height={20} largeTitle center style={styles.header}>sets</AppText>
         </View>
       </Modal>
   )
@@ -37,13 +54,26 @@ const SaveWorkoutModal = ({ modalVisible, toggle, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 40,
-    padding: 20
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   centeredView: {
     justifyContent: "center",
     alignItems: "center",
     marginTop: 50
   },
+  header: {
+    paddingTop: 20
+  },
+  button: {
+    width: 40, 
+    height: 40, 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderRadius: 20, 
+    backgroundColor: 'rgba(255,255,255,0.5)'
+  }
 });
 
 export default SaveWorkoutModal

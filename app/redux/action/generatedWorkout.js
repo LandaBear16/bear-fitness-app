@@ -5,6 +5,7 @@ import { snapshotToArray } from '../../helper/snapshotToArray'
 
 const updateGeneratedWorkout = createAction(ACTION.UPDATE_GENERATED_WORKOUT)
 const updateSavedWorkouts = createAction(ACTION.UPDATE_SAVED_WORKOUTS)
+const updatedSelectedWorkout = createAction(ACTION.SET_SELECTED_WORKOUT)
 
 export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
   dispatch(updateGeneratedWorkout(wod))
@@ -18,6 +19,23 @@ console.log("🚀 ~ file: generatedWorkout.js ~ line 14 ~ getSavedWorkouts ~ use
   const snapshot = snapshotToArray(saved)
 
   dispatch(updateSavedWorkouts(snapshot))
+}
+
+export const selectedWorkout = (workout) => (dispatch, getState) => {
+  console.log('workout', workout)
+  dispatch(updatedSelectedWorkout(workout))
+// console.log("🚀 ~ file: generatedWorkout.js ~ line 24 ~ selectedWorkout ~ workout", workout)
+
+}
+
+export const deleteWorkout = () => async (dispatch, getState) => {
+
+  const {
+    selectedWorkout
+  } = getState().generatedWorkout
+
+  console.log('selectedworkout to delete', selectedWorkout)
+  await firebase.firestore().collection('saved_workouts').doc(selectedWorkout).delete()
 }
 
 export const saveWorkout = () => async (dispatch, getState) => {
@@ -46,12 +64,13 @@ export const saveWorkout = () => async (dispatch, getState) => {
   // console.log({trainingGoal, selectedEquipment, selectedMuscleGroup, levelDetails, generatedWorkout})
 
 
-  // await firebase.firestore().collection('saved_workouts').add({
-  //   equipment: selectedEquipment,
-  //   level: levelDetails,
-  //   muscle_group: selectedMuscleGroup,
-  //   name: 'test1',
-  //   training_goal: trainingGoal,
-  //   workout: generatedWorkout
-  // })
+  await firebase.firestore().collection('saved_workouts').add({
+    equipment: selectedEquipment,
+    level: levelDetails,
+    muscle_group: selectedMuscleGroup,
+    name: 'test1',
+    training_goal: trainingGoal,
+    workout: generatedWorkout,
+    user: 'ChlPOwkH61YV9LELK6eTaavdwQD3'
+  })
 }

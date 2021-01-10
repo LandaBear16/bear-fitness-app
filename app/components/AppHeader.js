@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Modal } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
@@ -12,6 +12,7 @@ import AppText from './AppText'
 import { colours, sizes, fonts } from "../config/theme"
 
 const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
+  const [user, setUser] = useContext(UserContext)
   const [disableSave, setDisableSave] = useState(false)
   const dispatch = useDispatch()
   const navigation = useNavigation()
@@ -42,8 +43,9 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
     }
   }
 
-  const saveWorkout = () => {
+  const handleSave = () => {
     const toggle = !disableSave
+    console.log("🚀 ~ file: AppHeader.js ~ line 48 ~ handleSave ~ toggle", toggle)
     setDisableSave(toggle)
     // saveWod()
   }
@@ -54,7 +56,7 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
       <TouchableOpacity
         disable={disableSave}
         style={styles.button}
-        onPress={saveWorkout}
+        onPress={handleSave}
       >
         <MaterialCommunityIcons name="heart" size={24} color={disableSave ? colours.danger : colours.primary } />
       </TouchableOpacity>

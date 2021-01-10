@@ -45,7 +45,7 @@ export default function App() {
       <UserProvider>
         <Provider store={store}>
           <NavigationContainer>
-            <SavedWorkoutsScreen />
+            <WorkoutGeneratorStack />
           </NavigationContainer>
         </Provider>
       </UserProvider>

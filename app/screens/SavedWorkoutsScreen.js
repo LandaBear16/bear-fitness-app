@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity } from 'react-native'
 import { UserContext } from '../context/UserContext'
-import { getSavedWorkouts } from '../redux/action/generatedWorkout'
+import { getSavedWorkouts, selectedWorkout } from '../redux/action/generatedWorkout'
 import { useSelector, useDispatch } from 'react-redux'
 
 import AppText from '../components/AppText'
@@ -18,24 +18,32 @@ const SavedWorkoutsScreen = () => {
   const [modalVisible, setModalVisible] = useState(false)
   const { savedWorkouts: saved } = useSelector(state => state.generatedWorkout)
   const savedWorkouts = () => dispatch(getSavedWorkouts(user))
+  const setSelectedWorkout = (id) => dispatch(selectedWorkout(id))
 
   useEffect(() => {
     savedWorkouts()
   }, [])
 
-  const toggleModal = () => {
+  const toggleModal = (id) => {
+  if (!modalVisible) {
+    setSelectedWorkout(id)
+  } else {
+    setSelectedWorkout('')
+  }
+   
     const toggle = !modalVisible
     setModalVisible(toggle)
   }
 
-  const Item = ({ title }) => (
-    <TouchableOpacity style={styles.item} onPress={toggleModal}>
-      <AppText white style={styles.text}>{title}</AppText>
-    </TouchableOpacity>
-  )
+  const Item = ({item}) => {
+    return <TouchableOpacity style={styles.item} onPress={() => toggleModal(item.id)}>
+    <AppText white style={styles.text}>{item.item.name}</AppText>
+  </TouchableOpacity>
+  }
 
   const renderItem = ({ item }) => {
-    return <Item title={item.item.name} />
+  
+    return <Item item={item} />
   }
 
   return (
@@ -48,7 +56,7 @@ const SavedWorkoutsScreen = () => {
         { saved && <FlatList
           data={saved}
           renderItem={renderItem}
-          keyExtractor={item => item.name}
+          keyExtractor={item => item.id}
         />
         }
         </SafeAreaView>
