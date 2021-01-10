@@ -1,33 +1,60 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 
 import AppText from './AppText'
 import { colours, sizes, fonts } from "../config/theme"
 
-const AppHeader = ({ }) => {
+const AppHeader = ({ screenName, backButton, refresh, save }) => {
+
+  const navigation = useNavigation()
+
+  const renderBackButton = () => {
+    if (backButton) {
+      return (
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => { navigation.navigate(screenName) }}
+      >
+        <MaterialIcons name="keyboard-arrow-left" size={24} color={colours.primary} />
+      </TouchableOpacity>)
+    }
+  }
+
+  const renderRefreshButton = () => {
+    if (refresh) {
+      return (
+      <TouchableOpacity
+        style={styles.button}
+        // onPress={() => { navigation.navigate("Home") }}
+      >
+        <MaterialCommunityIcons name="refresh" size={24} color={colours.primary} />
+      </TouchableOpacity>)
+    }
+  }
+
+  const renderSaveButton = () => {
+    if (save) {
+    return (
+      <TouchableOpacity
+        style={styles.button}
+        // onPress={() => { navigation.navigate("Home") }}
+      >
+        <MaterialCommunityIcons name="heart" size={24} color={colours.primary} />
+      </TouchableOpacity>
+    )
+    }
+  }
+
+
   return (
     <View style={styles.container} >
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => { navigation.navigate("Home") }}
-        >
-          <MaterialCommunityIcons name="keyboard-backspace" size={24} color={colours.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => { navigation.navigate("Home") }}
-        >
-          <MaterialCommunityIcons name="refresh" size={24} color={colours.primary} />
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => { navigation.navigate("Home") }}
-        >
-          <MaterialCommunityIcons name="heart" size={24} color={colours.primary} />
-        </TouchableOpacity>
+        {renderBackButton()}
+        {renderRefreshButton()}
+        {renderSaveButton()}
       </View>
       <View>
       <AppText neonBlue height={20} largeTitle center style={styles.header}>Select your Training Goal:</AppText>

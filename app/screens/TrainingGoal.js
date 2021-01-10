@@ -66,8 +66,7 @@ const TrainingGoal = () => {
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-      <AppHeader />
-      {/* <AppText neonBlue height={20} h1 center style={styles.header}>Select your Training Goal:</AppText> */}
+      <AppHeader screenName={SCREEN_NAMES.HOME} refresh={false} backButton={true} save={false} />
       <AppBlock style={styles.scrollContainer}>
           <ScrollView
             showsVerticalScrollIndicator={false}
