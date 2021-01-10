@@ -5,7 +5,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import { generateWorkout } from '../redux/action/workout-fitness'
 import { useDispatch } from 'react-redux'
-import { saveWorkout } from '../redux/action/generatedWorkout'
+import { saveWorkout, deleteWorkout } from '../redux/action/generatedWorkout'
 import { UserContext } from '../context/UserContext'
 
 import AppText from './AppText'
@@ -45,9 +45,15 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
 
   const handleSave = () => {
     const toggle = !disableSave
-    console.log("🚀 ~ file: AppHeader.js ~ line 48 ~ handleSave ~ toggle", toggle)
-    setDisableSave(toggle)
-    // saveWod()
+    if (!disableSave) {
+      console.log('yup', )
+      setDisableSave(toggle)
+      saveWod()
+    } else {
+      console.log('nope', )
+      setDisableSave(toggle)
+    }
+    
   }
 
   const renderSaveButton = () => {

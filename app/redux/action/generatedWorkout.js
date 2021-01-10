@@ -38,7 +38,7 @@ export const deleteWorkout = () => async (dispatch, getState) => {
   await firebase.firestore().collection('saved_workouts').doc(selectedWorkout).delete()
 }
 
-export const saveWorkout = () => async (dispatch, getState) => {
+export const saveWorkout = (user) => async (dispatch, getState) => {
   
   const { 
     workoutFitness: {
@@ -64,7 +64,7 @@ export const saveWorkout = () => async (dispatch, getState) => {
   // console.log({trainingGoal, selectedEquipment, selectedMuscleGroup, levelDetails, generatedWorkout})
 
 
-  await firebase.firestore().collection('saved_workouts').add({
+  const response = await firebase.firestore().collection('saved_workouts').add({
     equipment: selectedEquipment,
     level: levelDetails,
     muscle_group: selectedMuscleGroup,
@@ -73,4 +73,6 @@ export const saveWorkout = () => async (dispatch, getState) => {
     workout: generatedWorkout,
     user: 'ChlPOwkH61YV9LELK6eTaavdwQD3'
   })
+
+  console.log('response', response.id)
 }
