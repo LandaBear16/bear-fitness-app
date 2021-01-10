@@ -12,7 +12,7 @@ import AppLoading from 'expo-app-loading'
 import AppStackScreens from './app/stacks/AppStackScreens'
 import TestScreen from './app/screens/TestScreen'
 import WorkoutGeneratorStack from './app/stacks/WorkoutGeneratorStack'
-import ProgressScreen from './app/screens/ProgressScreen'
+import SavedWorkoutsScreen from './app/screens/SavedWorkoutsScreen'
 import MainStackScreens from './app/stacks/MainStackScreens'
 
 import { 

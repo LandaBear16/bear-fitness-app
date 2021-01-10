@@ -8,6 +8,7 @@ import { colours } from '../config/theme'
 
 import WorkoutGeneratorStack from './WorkoutGeneratorStack'
 import ProfileScreen from '../screens/ProfileScreen'
+import SavedWorkoutsScreen from '../screens/SavedWorkoutsScreen'
 
 
 const MainStackScreens = () => {
@@ -24,9 +25,12 @@ const MainStackScreens = () => {
                 ? 'home'
                 : 'home-outline';
               return <MaterialCommunityIcons name={iconName} size={30} color={color} />
-            } else if (route.name === 'ProfileScreen') {
+            } else if (route.name === 'Profile Screen') {
               iconName = focused ? 'person' : 'person-outline';
               return <MaterialIcons name={iconName} size={30} color={color} />
+            } else if (route.name === 'Saved Workouts') {
+              iconName = focused ? 'heart' : 'heart-outline';
+              return <MaterialCommunityIcons name={iconName} size={30} color={color} />
             }
 
           },
@@ -45,7 +49,8 @@ const MainStackScreens = () => {
       }
     }} >
       <MainTabStack.Screen name='Home' component={WorkoutGeneratorStack} color={colours.primary} size={50}/>
-      <MainTabStack.Screen name='ProfileScreen' component={ProfileScreen} />
+      <MainTabStack.Screen name='Saved Workouts' component={SavedWorkoutsScreen} />
+      <MainTabStack.Screen name='Profile Screen' component={ProfileScreen} />
     </MainTabStack.Navigator>
   )
 }

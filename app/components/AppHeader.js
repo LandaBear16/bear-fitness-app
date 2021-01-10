@@ -1,16 +1,18 @@
 import React, {useState} from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Modal } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import { generateWorkout } from '../redux/action/workout-fitness'
 import { useDispatch } from 'react-redux'
 import { saveWorkout } from '../redux/action/generatedWorkout'
+import { UserContext } from '../context/UserContext'
 
 import AppText from './AppText'
 import { colours, sizes, fonts } from "../config/theme"
 
 const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
+  const [user, setUser] = useContext(UserContext)
   const [disableSave, setDisableSave] = useState(false)
   const dispatch = useDispatch()
   const navigation = useNavigation()

@@ -71,7 +71,6 @@ export const resetWorkoutOptions = () => (dispatch, getState) => {
 }
 
 export const generateWorkout = () => async (dispatch, getState) => {
-
   const { 
     trainingGoal,
     selectedEquipment,

@@ -9,11 +9,14 @@ import Screen from './Screen'
 
 const CountdownTimer = ({ restPeriod, closeTimer }) => {
   const [display, setDisplay] = useState('00:00')
+  const [title, setTitle] = useState('Skip Rest Period')
   const [countdown, setCountdown] = useState(null)
+  const test = 5
 
   useEffect(() => {
-   timer(restPeriod)
+    timer(test)
   }, [])
+
 
   const timer = (seconds) => {
     const now = Date.now()
@@ -21,11 +24,13 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
 
     displayTimeLeft(seconds)
 
+
     setCountdown(setInterval(() => {
       const secondsLeft = Math.round((then - Date.now()) / 1000)
 
       if(secondsLeft < 0) {
-        clearTimer()
+        setTitle('Close Modal')
+        clearInterval(countdown)
         return
       }
 
@@ -57,7 +62,7 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
         style={{ ...styles.openButton }}
         onPress={clearTimer}
       >
-        <AppText white bold center style={styles.textStyle}>Skip Timer</AppText>
+        <AppText white bold center style={styles.textStyle}>{title}</AppText>
       </TouchableHighlight>
     </AppBlock>
   )
