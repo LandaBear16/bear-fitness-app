@@ -5,21 +5,25 @@ import AppButtonBasic from '../components/AppButtonBasic'
 import LinearGradientScreen from '../components/LinearGradientScreen'
 import Screen from '../components/Screen'
 import { colours } from '../config/theme'
+import moment from 'moment'
 
 import {circleDiameter} from '../helper/circleDiameter'
+import { greetingMessage } from '../helper/greetingMessage'
 
 const { width, height } = Dimensions.get('window')
 
 
 const diameter = circleDiameter(width, height)
+const message = greetingMessage(moment())
+console.log("🚀 ~ file: Home.js ~ line 18 ~ message", message)
 
 
 const Home = ({ navigation }) => {
   return (
     <Screen style={styles.screen}>
       <LinearGradientScreen />
-      <View>
-        <Text style={styles.text}>HOME</Text>
+      <Text style={styles.text}>{message}</Text>
+      <View style={styles.buttonContainer}>
         <AppButtonBasic title='Generate Workout' onPress={() => navigation.navigate('TrainingGoals')} style={styles.round} fontStyles={styles.text} />
       </View>
     </Screen>
@@ -31,8 +35,12 @@ const styles = StyleSheet.create({
   screen: {
     width: "100%",
     flex: 1,
+    
+  },
+  buttonContainer: {
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   text: {
     color: colours.neonBlue
