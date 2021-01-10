@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import AppText from './AppText'
 import { colours, sizes, fonts } from "../config/theme"
 
-const AppHeader = ({ screenName, backButton, refresh, save }) => {
+const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
 
   const navigation = useNavigation()
 
@@ -57,7 +57,7 @@ const AppHeader = ({ screenName, backButton, refresh, save }) => {
         {renderSaveButton()}
       </View>
       <View>
-      <AppText neonBlue height={20} largeTitle center style={styles.header}>Select your Training Goal:</AppText>
+      <AppText neonBlue height={20} largeTitle center style={styles.header}>{title}</AppText>
       </View>
     </View>
   )

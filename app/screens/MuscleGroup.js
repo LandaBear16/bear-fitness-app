@@ -1,6 +1,7 @@
 import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import * as MESSAGES from '../common/constants/progressMessage'
+import * as TITLE from '../common/constants/titleScreenNames'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
@@ -19,7 +20,8 @@ import Screen from '../components/Screen'
 
 const { width } = Dimensions.get("window")
 
-const MuscleGroup = ({ navigation }) => {
+const MuscleGroup = () => {
+  const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
   const [displayButton, setDisplayButton] = useState(true)
   const { muscleGroupList, selectedMuscleGroup: muscleGroup } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -44,13 +46,20 @@ const MuscleGroup = ({ navigation }) => {
   }
 
   const activeButton = (key) => {
-    return muscleGroup === key ? 'plight' : 'gray'
+    return muscleGroup === key ? 'primary' : 'gray'
   }
 
+  const activeText = (key) => {
+    return muscleGroup === key ? colours.white : colours.primary
+  }
+
+  const handleMessageChange = (newMessage) => {
+    setMessage(newMessage)
+  }
   return (
     <Screen style={styles.container}>
      <LinearGradientScreen />
-    <AppText primary height={20} h1 center bold style={styles.header}>Select the Muscle Group to train:</AppText>
+     <AppHeader screenName={SCREEN_NAMES.MUSCLE_GROUP} refresh={false} backButton={true} save={false} title={TITLE.MUSCLE_GROUP_TITLE}/>
     <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -76,7 +85,8 @@ const MuscleGroup = ({ navigation }) => {
         displayButton={displayButton}
         title={BUTTON_TITLES.NEXT} 
         screenName='Levels' 
-        backName='EquipmentList' 
+        message={message}
+        setMessage={handleMessageChange} 
         style={styles.bottomNav} 
         onPressEvent={null}
       />

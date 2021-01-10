@@ -1,6 +1,7 @@
 import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import * as MESSAGES from '../common/constants/progressMessage'
+import * as TITLE from '../common/constants/titleScreenNames'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
@@ -66,7 +67,7 @@ const EquipmentList = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-    <AppHeader screenName={SCREEN_NAMES.TRAINING_GOALS} refresh={false} backButton={true} save={false} />
+    <AppHeader screenName={SCREEN_NAMES.TRAINING_GOALS} refresh={false} backButton={true} save={false} title={TITLE.EQUIPMENT_TITLE} />
     <AppBlock style={styles.scrollContainer}>
         <ScrollView
           showsVerticalScrollIndicator={false}
