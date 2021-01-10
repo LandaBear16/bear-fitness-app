@@ -5,7 +5,9 @@ const colours = {
   gray: '#D9D9D9',
   black: '#000000',
   plight: '#d7fff1',
-  ming: '#3C6E71'
+  ming: '#3C6E71',
+  iceBlue: '#90e0ef',
+  neonBlue: '#8FFCFF'
 }
 
 // const colours = {

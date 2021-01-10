@@ -10,12 +10,29 @@ import GeneratedWorkout from '../screens/GeneratedWorkout'
 import BeginWorkoutScreen from '../screens/BeginWorkoutScreen'
 
 
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 100,
+    mass: 3,
+    overshootClamping: false,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+}
 
 const WorkoutGeneratorStack = () => {
   const WorkoutStack = createStackNavigator()
 
   return (
-    <WorkoutStack.Navigator screenOptions={{ headerShown: false }} >
+    <WorkoutStack.Navigator screenOptions={{ 
+      headerShown: false,
+      transitionSpec: {
+        open: config,
+        close:config
+      }
+    }} >
       <WorkoutStack.Screen name='Home' component={Home} />
       <WorkoutStack.Screen name='TrainingGoals' component={TrainingGoal} />
       <WorkoutStack.Screen name='EquipmentList' component={EquipmentList} />

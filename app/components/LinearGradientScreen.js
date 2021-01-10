@@ -5,7 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { colours } from '../config/theme'
 
 const LinearGradientScreen = () => {
-console.log("🚀 ~ file: LinearGradientScreen.js ~ line 6 ~ LinearGradientScreen ~ styles", styles)
   return (
     <LinearGradient
         // Background Linear Gradient
