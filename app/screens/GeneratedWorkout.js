@@ -45,7 +45,7 @@ const GeneratedWorkout = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
     <LinearGradientScreen />
-      {levelDetails && <AppText h1 center>{levelDetails.sets} Sets of:</AppText>}
+      {levelDetails && <AppHeader screenName={SCREEN_NAMES.LEVELS} refresh={true} backButton={true} save={true} title={`${levelDetails.sets} sets of`} />}
       <AppBlock style={styles.scrollContainer}>
       <SafeAreaView
           style={{ paddingVertical: sizes.base * 2 }}

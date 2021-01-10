@@ -11,7 +11,6 @@ export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
 }
 
 export const saveWorkout = () => async (dispatch, getState) => {
-  console.log('boom', getState())
   
   const { 
     workoutFitness: {
@@ -24,6 +23,8 @@ export const saveWorkout = () => async (dispatch, getState) => {
       generatedWorkout
     }
   } = getState()
+
+  console.log('traininggoal', trainingGoal)
 
   // const {
   //   trainingGoal,

@@ -7,7 +7,8 @@ const colours = {
   plight: '#d7fff1',
   ming: '#3C6E71',
   iceBlue: '#90e0ef',
-  neonBlue: '#8FFCFF'
+  neonBlue: '#8FFCFF',
+  danger: '#d62839'
 }
 
 // const colours = {

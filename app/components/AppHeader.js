@@ -1,15 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
+import { generateWorkout } from '../redux/action/workout-fitness'
+import { useDispatch } from 'react-redux'
+import { saveWorkout } from '../redux/action/generatedWorkout'
 
 import AppText from './AppText'
 import { colours, sizes, fonts } from "../config/theme"
 
 const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
-
+  const [disableSave, setDisableSave] = useState(false)
+  const dispatch = useDispatch()
   const navigation = useNavigation()
+  const workoutGenerator = workout => dispatch(generateWorkout())
+  const saveWod = () => dispatch(saveWorkout())
 
   const renderBackButton = () => {
     if (backButton) {
@@ -28,21 +34,28 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
       return (
       <TouchableOpacity
         style={styles.button}
-        // onPress={() => { navigation.navigate("Home") }}
+        onPress={workoutGenerator}
       >
         <MaterialCommunityIcons name="refresh" size={24} color={colours.primary} />
       </TouchableOpacity>)
     }
   }
 
+  const saveWorkout = () => {
+    const toggle = !disableSave
+    setDisableSave(toggle)
+    // saveWod()
+  }
+
   const renderSaveButton = () => {
     if (save) {
     return (
       <TouchableOpacity
+        disable={disableSave}
         style={styles.button}
-        // onPress={() => { navigation.navigate("Home") }}
+        onPress={saveWorkout}
       >
-        <MaterialCommunityIcons name="heart" size={24} color={colours.primary} />
+        <MaterialCommunityIcons name="heart" size={24} color={disableSave ? colours.danger : colours.primary } />
       </TouchableOpacity>
     )
     }
