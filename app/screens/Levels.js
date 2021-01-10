@@ -21,6 +21,7 @@ import Screen from '../components/Screen'
 const { width } = Dimensions.get("window")
 
 const Levels = () => {
+  const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
   const [displayButton, setDisplayButton] = useState(true)
   const { levelList, selectedLevel: level } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
@@ -53,7 +54,15 @@ const Levels = () => {
   }
 
   const activeButton = (key) => {
-    return level === key ? 'plight' : 'gray'
+    return level === key ? 'primary' : 'gray'
+  }
+
+  const activeText = (key) => {
+    return level === key ? colours.white : colours.primary
+  }
+
+  const handleMessageChange = (newMessage) => {
+    setMessage(newMessage)
   }
 
   return (
@@ -72,7 +81,7 @@ const Levels = () => {
                 onPress={() => handleSelected(level.id)}
               >
                 <AppCard center middle shadow colour={activeButton(level.id)} style={styles.goal} >
-                  <AppText dark height={20} size={18}>
+                  <AppText dark height={20} size={18} style={{ color: activeText(level.id)}}>
                     {level.item.name}
                   </AppText>
                 </AppCard>
@@ -85,7 +94,8 @@ const Levels = () => {
         displayButton={displayButton}
         title={BUTTON_TITLES.GENERATE_WORKOUT} 
         screenName='GeneratedWorkout' 
-        backName='MuscleGroup' 
+        message={message}
+        setMessage={handleMessageChange}
         style={styles.bottomNav} 
         fontStyles={styles.fontStyles} 
         onPressEvent={workoutGenerator}
