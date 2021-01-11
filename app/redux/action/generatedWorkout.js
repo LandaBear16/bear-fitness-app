@@ -26,14 +26,12 @@ export const selectedWorkout = (workout) => (dispatch, getState) => {
   dispatch(updatedSelectedWorkout(workout.id))
   
   if (workout) {
-    console.log('state', workout.item.level)
     dispatch(updateLevelDetails(workout.item.level))
     dispatch(setGeneratedWorkout(workout.item.workout))
   }
 }
 
 export const deleteWorkout = (user) => async (dispatch, getState) => {
-console.log("🚀 ~ file: generatedWorkout.js ~ line 36 ~ deleteWorkout ~ user", user)
 
   const {
     selectedWorkout,
@@ -48,7 +46,6 @@ console.log("🚀 ~ file: generatedWorkout.js ~ line 36 ~ deleteWorkout ~ user",
 }
 
 export const saveWorkout = (user) => async (dispatch, getState) => {
-console.log("🚀 ~ file: generatedWorkout.js ~ line 52 ~ saveWorkout ~ user", user)
   
   const { 
     workoutFitness: {
@@ -72,7 +69,6 @@ console.log("🚀 ~ file: generatedWorkout.js ~ line 52 ~ saveWorkout ~ user", u
     user
   })
 
-  console.log('response', response.id)
 
   dispatch(updateCurrentSavedWorkout(response.id))
   dispatch(getSavedWorkouts(user))

@@ -40,7 +40,6 @@ const SaveWorkoutModal = ({ modalVisible, toggle }) => {
   )
 
   const renderItem = ({ item }) => {
-  console.log("🚀 ~ file: SaveWorkoutModal.js ~ line 41 ~ renderItem ~ item", item)
 
     return <Item title={item.name} />
   }
