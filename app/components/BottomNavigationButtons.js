@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import {colours, sizes, fonts} from "../config/theme"
 
-const BottomNavigationButtons = ({ title, screenName, message, setMessage, style, fontStyles, onPressEvent, displayButton, stopNavigation = false, nestedNavigator, nestedName }) => {
+const BottomNavigationButtons = ({ title, screenName, message, setMessage, style, fontStyles, onPressEvent, displayButton, stopNavigation = false, nestedNavigator }) => {
   
   const navigation = useNavigation()
 
@@ -16,7 +16,12 @@ const handleOnPress = () => {
     if (onPressEvent !== null) {
       onPressEvent()
     }
-    nestedNavigator ? navigation.navigate(nestedNavigator, { screen: nestedName }) : navigation.navigate(screenName)
+
+    navigation.navigate(screenName)
+    if (nestedNavigator) {
+      nestedNavigator()
+    }
+    // nestedNavigator ? navigation.navigate(nestedNavigator, { screen: nestedName }) : navigation.navigate(screenName)
   } else {
     setMessage('PLEASE SELECT AN OPTION TO CONTINUE')
   }

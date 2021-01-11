@@ -15,15 +15,15 @@ export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
 }
 
 export const getSavedWorkouts = (user) => async (dispatch, getState) => {
-  const saved = await firebase.firestore().collection('saved_workouts').where('user', '==', 'ChlPOwkH61YV9LELK6eTaavdwQD3').get()
+  const id = user.uid ?? user
+  const saved = await firebase.firestore().collection('saved_workouts').where('user', '==', id).get()
   const snapshot = snapshotToArray(saved)
-
 
   dispatch(updateSavedWorkouts(snapshot))
 }
 
 export const selectedWorkout = (workout) => (dispatch, getState) => {
-  dispatch(updatedSelectedWorkout(workout))
+  dispatch(updatedSelectedWorkout(workout.id))
   
   if (workout) {
     console.log('state', workout.item.level)
@@ -32,7 +32,8 @@ export const selectedWorkout = (workout) => (dispatch, getState) => {
   }
 }
 
-export const deleteWorkout = () => async (dispatch, getState) => {
+export const deleteWorkout = (user) => async (dispatch, getState) => {
+console.log("🚀 ~ file: generatedWorkout.js ~ line 36 ~ deleteWorkout ~ user", user)
 
   const {
     selectedWorkout,
@@ -42,9 +43,12 @@ export const deleteWorkout = () => async (dispatch, getState) => {
   const itemToDelete = selectedWorkout ?? currentSavedWorkout
 
   await firebase.firestore().collection('saved_workouts').doc(itemToDelete).delete()
+
+  dispatch(getSavedWorkouts(user))
 }
 
 export const saveWorkout = (user) => async (dispatch, getState) => {
+console.log("🚀 ~ file: generatedWorkout.js ~ line 52 ~ saveWorkout ~ user", user)
   
   const { 
     workoutFitness: {
@@ -67,6 +71,8 @@ export const saveWorkout = (user) => async (dispatch, getState) => {
     workout: generatedWorkout,
     user
   })
+
+  console.log('response', response.id)
 
   dispatch(updateCurrentSavedWorkout(response.id))
   dispatch(getSavedWorkouts(user))

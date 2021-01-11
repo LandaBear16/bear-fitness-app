@@ -19,7 +19,7 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const workoutGenerator = workout => dispatch(generateWorkout())
   const saveWod = () => dispatch(saveWorkout(user.uid))
-  const deleteCurrentSavedWorkout = () => dispatch(deleteWorkout())
+  const deleteCurrentSavedWorkout = () => dispatch(deleteWorkout(user))
 
   const renderBackButton = () => {
     if (backButton) {

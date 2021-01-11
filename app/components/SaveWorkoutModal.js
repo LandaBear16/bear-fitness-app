@@ -2,19 +2,19 @@ import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import * as MESSAGES from '../common/constants/progressMessage'
 import React, { useContext, useState } from 'react'
-import { View, Text, Modal, StyleSheet, TouchableOpacity, SafeAreaView, FlatList } from 'react-native'
+import { View, Modal, StyleSheet, TouchableOpacity, SafeAreaView, FlatList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteWorkout } from '../redux/action/generatedWorkout'
 import { UserContext } from '../context/UserContext'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import { useNavigation, Link } from '@react-navigation/native'
+
 
 import AppBlock from '../components/AppBlock'
 import AppText from '../components/AppText'
-import AppHeader from '../components/AppHeader'
+
 import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import LinearGradientScreen from '../components/LinearGradientScreen'
-import Screen from '../components/Screen'
+
 
 import {colours, sizes} from '../config/theme'
 
@@ -25,7 +25,7 @@ const SaveWorkoutModal = ({ modalVisible, toggle }) => {
   const { generatedWorkout, savedWorkouts } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
   const dispatch = useDispatch()
-  const deleteSelectedWorkout = () => dispatch(deleteWorkout())
+  const deleteSelectedWorkout = () => dispatch(deleteWorkout(user))
 
 
   const handleDelete = () => {
@@ -90,8 +90,7 @@ const SaveWorkoutModal = ({ modalVisible, toggle }) => {
           displayButton={false} 
           title={BUTTON_TITLES.BEGIN_WORKOUT} 
           screenName={SCREEN_NAMES.BEGIN_WORKOUT} 
-          nestedNavigator='Home'
-          nestedName='BeginWorkoutScreen'
+          nestedNavigator={toggle}
           message={message}
           setMessage={handleMessageChange}
           style={styles.bottomNav} 

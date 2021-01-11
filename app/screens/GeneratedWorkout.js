@@ -2,7 +2,7 @@ import * as BUTTON_TITLES from '../common/constants/ButtonTitles'
 import * as SCREEN_NAMES from '../common/constants/ScreenNames'
 import * as MESSAGES from '../common/constants/progressMessage'
 import * as TITLE from '../common/constants/titleScreenNames'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, FlatList, StyleSheet, Text, StatusBar, SafeAreaView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -12,11 +12,13 @@ import BottomNavigationButtons from '../components/BottomNavigationButtons'
 import AppHeader from '../components/AppHeader'
 import LinearGradientScreen from '../components/LinearGradientScreen'
 import Screen from '../components/Screen'
+import { UserContext } from '../context/UserContext'
 
 
 import {colours, sizes} from "../config/theme"
 
 const GeneratedWorkout = () => {
+  const [user, setUser] = useContext(UserContext)
   const [message, setMessage] = useState(MESSAGES.TRAINING_GOAL_MESSAGE)
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const { levelDetails } = useSelector(state => state.workoutFitness)
