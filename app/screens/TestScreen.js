@@ -12,22 +12,22 @@ import colours from '../config/colours'
 const TestScreen = (props) => {
 
   const theme = useSelector((state) => state.workoutFitness);
-  console.log("🚀 ~ file: TestScreen.js ~ line 16 ~ TestScreen ~ theme", theme)
+
   const dispatch = useDispatch();
 
   const testQuery = async () => {
-    console.log("testing")
+
     dispatch(updateTest())
     const query = await firebase.firestore().collection("training_goal").doc("XQpxlu4dMb6RQ8sqDGQV").get()
 
-    console.log('data', query.data().workout_details)
+
     const details = query.data().workout_details
 
     const [level] = details.filter((item) => {
       return item.level === 'Intermediate'
     })
 
-    console.log('level', level)
+
   }
 
   return (

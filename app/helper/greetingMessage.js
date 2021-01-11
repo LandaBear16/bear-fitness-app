@@ -7,7 +7,6 @@ export const greetingMessage = (m, userName) => {
   const split_afternoon = 12 //24hr time to split the afternoon
 	const split_evening = 17 //24hr time to split the evening
   const currentHour = parseFloat(m.format("HH"));
-  console.log("🚀 ~ file: greetingMessage.js ~ line 9 ~ greetingMessage ~ currentHour", currentHour)
   
   if(currentHour >= split_afternoon && currentHour < split_evening) {
 		messageTime = "afternoon";

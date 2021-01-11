@@ -19,28 +19,6 @@ const validationSchema = Yup.object().shape({
 })
 
 const ProgressScreen = () => {
-  
-  // const firebase = useContext(FirebaseContext)
-  // const dispatch = useDispatch()
-  // const updateUser = user => dispatch(setUser(user))
-  // const { user } = useSelector(state => state.auth)
-
-
-  // const userInformation = async () => {
-  //   try {
-  //     const uid = await firebase.getCurrentUser().uid
-  //     console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
-
-  //     const userInfo = await firebase.getUserInfo(uid)
-  //     console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
-
-  //     updateUser(userInfo)
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-   
-  // }
-
 
   return (
     <Screen>

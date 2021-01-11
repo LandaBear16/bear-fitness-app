@@ -50,11 +50,9 @@ const BeginWorkoutScreen = ({ navigation }) => {
   }
 
   const checkSetCounter = () => {
-    console.log('setCount', setCount)
     const set = setCount + 1
     increaseSetCount(set)
     if (set <= levelDetails.sets) {
-      console.log('set', setCount)
       setButtonName(`${BUTTON_TITLES.COMPLETE_SET} ${set}`)
     } 
   }

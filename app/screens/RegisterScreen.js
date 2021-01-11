@@ -26,10 +26,8 @@ const RegisterScreen = (props) => {
       await firebase.createUser(user)
 
       const uid = firebase.getCurrentUser().uid
-      console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
 
       const userInfo = await firebase.getUserInfo(uid)
-      console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
 
       setUser({
         fullName: userInfo.fullName,

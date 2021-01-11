@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react'
-import { Text, StyleSheet } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux'
-import { setUser } from '../redux/action/auth'
+import React, { useContext } from 'react'
+import { StyleSheet } from 'react-native'
 import { FirebaseContext } from '../context/FirebaseContext'
+import { UserContext } from '../context/UserContext'
 
 import * as Yup from 'yup'
 
@@ -13,34 +12,16 @@ import SubmitButton from '../components/form/SubmitButton'
 import Screen from '../components/Screen'
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label('Email'),
-  password: Yup.string().required().min(4).label('Password')
+  email: Yup.string().required().email().label('Email')
 })
 
 const ProfileScreen = () => {
   
   const firebase = useContext(FirebaseContext)
-  const dispatch = useDispatch()
-  const updateUser = user => dispatch(setUser(user))
-  const { user } = useSelector(state => state.auth)
+  const [user, setUser] = useContext(UserContext)
 
-  useEffect(() => {
-   userInformation()
-  }, [])
-
-  const userInformation = async () => {
-    try {
-      const uid = await firebase.getCurrentUser().uid
-      console.log("🚀 ~ file: LoginScreen.js ~ line 29 ~ handleLogin ~ uid", uid)
-
-      const userInfo = await firebase.getUserInfo(uid)
-      console.log("🚀 ~ file: LoginScreen.js ~ line 28 ~ handleLogin ~ userInfo", userInfo)
-
-      updateUser(userInfo)
-    } catch (error) {
-      console.error(error)
-    }
-   
+  const handleUpdate = async ({ fullName, email }) => {
+    await firebase.updateUser(fullName, email, user.uid)
   }
 
   return (
@@ -51,7 +32,7 @@ const ProfileScreen = () => {
           email: user.email,
           fullName: user.fullName
         }}
-        onSubmit={values => onRegisterPress(values)}
+        onSubmit={values => handleUpdate(values)}
         validationSchema={validationSchema}
       >
         <AppFormField
@@ -81,7 +62,8 @@ const ProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 20
   }
 })
 

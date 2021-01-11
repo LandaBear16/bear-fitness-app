@@ -20,21 +20,14 @@ const updateLevelDetails = createAction(ACTION.UPDATE_LEVEL_DETAILS)
 
 export const updateTrainingGoal = (id) => (dispatch, getState) => {
   dispatch(updateSort({trainingGoal: id}))
-  // const state = getState()
-  // console.log('state update', state)
 }
 
 export const setInitialGoals = (goals) => (dispatch, getState) => {
   dispatch(updateGoals(goals))
-  // const state = getState()
-  // console.log('state', state)
 }
 
 export const selectedEquipmentList = (list) => (dispatch, getState) => {
-console.log("🚀 ~ file: workout-fitness.js ~ line 34 ~ selectedEquipmentList ~ list", list)
   dispatch(updateSelectedEquipmentList(list))
-  // const state = getState()
-  // console.log('state selected', state)
 }
 
 export const setEquipmentList = (list) => (dispatch, getState) => {
@@ -43,8 +36,6 @@ export const setEquipmentList = (list) => (dispatch, getState) => {
 
 export const selectedMuscleGroup = (group) => (dispatch, getState) => {
   dispatch(updateSelectedMuscleGroup(group))
-  // const state = getState()
-  // console.log('state muscle', state)
 }
 
 export const setMuscleGroupList = (list) => (dispatch, getState) => {
@@ -53,8 +44,6 @@ export const setMuscleGroupList = (list) => (dispatch, getState) => {
 
 export const selectedLevel = (level) => (dispatch, getState) => {
   dispatch(updateSelectedLevel(level))
-  // const state = getState()
-  // console.log('state level', state)
 }
 
 
@@ -67,7 +56,6 @@ export const resetWorkoutOptions = () => (dispatch, getState) => {
   dispatch(selectedEquipmentList([]))
   dispatch(selectedMuscleGroup(''))
   dispatch(selectedLevel(''))
-  console.log('state', getState().workoutFitness)
 }
 
 export const generateWorkout = () => async (dispatch, getState) => {
@@ -77,10 +65,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
     selectedMuscleGroup,
     selectedLevel
   } = getState().workoutFitness
-  // console.log('traing', trainingGoal)
-  // console.log('equip', selectedEquipment)
-  // console.log('selectedMuscleGroup', selectedMuscleGroup)
-  // console.log('LEVEL', selectedLevel)
+
 
   const query = await firebase.firestore().collection("training_goal").doc(trainingGoal).get()
   const exercises = await firebase.firestore().collection("exercise")
@@ -99,7 +84,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
 
  bp.docs.map(doc => {
     const data = doc.data()
-    // console.log('data', data)
+
     if (data.equipment.length == 1 && _.includes(data.training_goal, trainingGoal)) {
       exerciseList.push(data)
     } else if (data.equipment.length > 1) {
@@ -112,7 +97,7 @@ export const generateWorkout = () => async (dispatch, getState) => {
     }
   })
 
-  // console.log('exerciseList', exerciseList)
+
 
   const details = query.data().workout_details
 
@@ -120,17 +105,11 @@ export const generateWorkout = () => async (dispatch, getState) => {
     return item.level === selectedLevel
   })
 
-  console.log('level', level)
-  // const workout = []
 
   const workout = _.shuffle(exerciseList).slice(0, level.number_of_exercises);
-  console.log("🚀 ~ file: workout-fitness.js ~ line 122 ~ generateWorkout ~ workout", workout)
 
   
   dispatch(updateLevelDetails(level))
   dispatch(setGeneratedWorkout(workout))
-  // console.log('workout', workout)
-  
-  console.log('-------------')
 
 }

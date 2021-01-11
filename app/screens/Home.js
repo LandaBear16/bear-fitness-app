@@ -23,7 +23,6 @@ const diameter = circleDiameter(width, height)
 
 const Home = ({ navigation }) => {
   const [user, setUser] = useContext(UserContext)
-  console.log('user', user)
   const dispatch = useDispatch()
   const resetTrainingOptions = () => dispatch(resetWorkoutOptions())
   const message = greetingMessage(moment(), user.fullName)

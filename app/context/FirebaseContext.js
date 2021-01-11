@@ -8,7 +8,6 @@ const db = firebase.firestore()
 
 const Firebase = {
   login: async (email, password) => {
-    console.log('login', email)
     return firebase.auth().signInWithEmailAndPassword(email, password);
   },
 
@@ -45,7 +44,14 @@ const Firebase = {
     } catch (error) {
         console.log("Error @createUser: ", error.message);
     }
-},
+  },
+
+  updateUser: async (fullName, email, uid) => {
+    await db.collection('users').doc(uid).set({
+      fullName,
+      email
+    })
+  }
 }
 
 const FirebaseProvider = (props) => {

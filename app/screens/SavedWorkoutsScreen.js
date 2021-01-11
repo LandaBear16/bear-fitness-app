@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { StyleSheet, SafeAreaView, FlatList, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import { UserContext } from '../context/UserContext'
 import { getSavedWorkouts, selectedWorkout } from '../redux/action/generatedWorkout'
 import { useSelector, useDispatch } from 'react-redux'

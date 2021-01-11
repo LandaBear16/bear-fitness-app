@@ -13,7 +13,6 @@ import { colours, sizes, fonts } from "../config/theme"
 
 const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
   const [user, setUser] = useContext(UserContext)
-  console.log("🚀 ~ file: AppHeader.js ~ line 16 ~ AppHeader ~ user", user)
   const [disableSave, setDisableSave] = useState(false)
   const dispatch = useDispatch()
   const navigation = useNavigation()
