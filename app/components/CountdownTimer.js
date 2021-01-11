@@ -11,10 +11,9 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
   const [display, setDisplay] = useState('00:00')
   const [title, setTitle] = useState('Skip Rest Period')
   const [countdown, setCountdown] = useState(null)
-  const test = 5
 
   useEffect(() => {
-    timer(test)
+    timer(restPeriod)
   }, [])
 
 

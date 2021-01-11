@@ -6,6 +6,7 @@ import { snapshotToArray } from '../../helper/snapshotToArray'
 const updateGeneratedWorkout = createAction(ACTION.UPDATE_GENERATED_WORKOUT)
 const updateSavedWorkouts = createAction(ACTION.UPDATE_SAVED_WORKOUTS)
 const updatedSelectedWorkout = createAction(ACTION.SET_SELECTED_WORKOUT)
+const updateCurrentSavedWorkout = createAction(ACTION.CURRENT_SAVED_WORKOUT)
 
 export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
   dispatch(updateGeneratedWorkout(wod))
@@ -31,11 +32,14 @@ export const selectedWorkout = (workout) => (dispatch, getState) => {
 export const deleteWorkout = () => async (dispatch, getState) => {
 
   const {
-    selectedWorkout
+    selectedWorkout,
+    currentSavedWorkout
   } = getState().generatedWorkout
 
-  console.log('selectedworkout to delete', selectedWorkout)
-  await firebase.firestore().collection('saved_workouts').doc(selectedWorkout).delete()
+  const itemToDelete = selectedWorkout ?? currentSavedWorkout
+
+  console.log('selectedworkout to delete', itemToDelete)
+  await firebase.firestore().collection('saved_workouts').doc(itemToDelete).delete()
 }
 
 export const saveWorkout = (user) => async (dispatch, getState) => {
@@ -52,18 +56,6 @@ export const saveWorkout = (user) => async (dispatch, getState) => {
     }
   } = getState()
 
-  console.log('traininggoal', trainingGoal)
-
-  // const {
-  //   trainingGoal,
-  //   selectedEquipment,
-  //   selectedMuscleGroup,
-  //   levelDetails
-  // } = getState().workoutFitness
-
-  // console.log({trainingGoal, selectedEquipment, selectedMuscleGroup, levelDetails, generatedWorkout})
-
-
   const response = await firebase.firestore().collection('saved_workouts').add({
     equipment: selectedEquipment,
     level: levelDetails,
@@ -75,4 +67,8 @@ export const saveWorkout = (user) => async (dispatch, getState) => {
   })
 
   console.log('response', response.id)
+
+  dispatch(updateCurrentSavedWorkout(response.id))
+
+  
 }

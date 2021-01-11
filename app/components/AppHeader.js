@@ -4,7 +4,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useNavigation } from '@react-navigation/native'
 import { generateWorkout } from '../redux/action/workout-fitness'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { saveWorkout, deleteWorkout } from '../redux/action/generatedWorkout'
 import { UserContext } from '../context/UserContext'
 
@@ -16,8 +16,10 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
   const [disableSave, setDisableSave] = useState(false)
   const dispatch = useDispatch()
   const navigation = useNavigation()
+  const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const workoutGenerator = workout => dispatch(generateWorkout())
   const saveWod = () => dispatch(saveWorkout())
+  const deleteCurrentSavedWorkout = () => dispatch(deleteWorkout())
 
   const renderBackButton = () => {
     if (backButton) {
@@ -46,12 +48,11 @@ const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
   const handleSave = () => {
     const toggle = !disableSave
     if (!disableSave) {
-      console.log('yup', )
       setDisableSave(toggle)
       saveWod()
     } else {
-      console.log('nope', )
       setDisableSave(toggle)
+      deleteCurrentSavedWorkout()
     }
     
   }
