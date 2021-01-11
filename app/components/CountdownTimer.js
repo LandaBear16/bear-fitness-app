@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { StyleSheet, TouchableHighlight } from 'react-native'
 import { colours } from '../config/theme'
 
 import AppBlock from './AppBlock'
 import AppText from './AppText'
-
-import Screen from './Screen'
 
 const CountdownTimer = ({ restPeriod, closeTimer }) => {
   const [display, setDisplay] = useState('00:00')
@@ -43,7 +41,6 @@ const CountdownTimer = ({ restPeriod, closeTimer }) => {
     const remainderSeconds = seconds % 60
     const display = `${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`
     setDisplay(display)
-    console.log(minutes, remainderSeconds)
   }
 
   const clearTimer = () => {

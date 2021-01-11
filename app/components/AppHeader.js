@@ -13,12 +13,13 @@ import { colours, sizes, fonts } from "../config/theme"
 
 const AppHeader = ({ screenName, backButton, refresh, save, title }) => {
   const [user, setUser] = useContext(UserContext)
+  console.log("🚀 ~ file: AppHeader.js ~ line 16 ~ AppHeader ~ user", user)
   const [disableSave, setDisableSave] = useState(false)
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const { generatedWorkout } = useSelector(state => state.generatedWorkout)
   const workoutGenerator = workout => dispatch(generateWorkout())
-  const saveWod = () => dispatch(saveWorkout())
+  const saveWod = () => dispatch(saveWorkout(user.uid))
   const deleteCurrentSavedWorkout = () => dispatch(deleteWorkout())
 
   const renderBackButton = () => {
