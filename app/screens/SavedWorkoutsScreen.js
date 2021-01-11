@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-nati
 import { UserContext } from '../context/UserContext'
 import { getSavedWorkouts, selectedWorkout } from '../redux/action/generatedWorkout'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 import AppText from '../components/AppText'
 import LinearGradientScreen from '../components/LinearGradientScreen'
@@ -14,9 +15,10 @@ import Screen from '../components/Screen'
 
 const SavedWorkoutsScreen = () => {
   const [user, setUser] = useContext(UserContext)
+  // const navigation = useNavigation()
   const dispatch = useDispatch()
   const [modalVisible, setModalVisible] = useState(false)
-  const { savedWorkouts: saved } = useSelector(state => state.generatedWorkout)
+  const { savedWorkouts: saved, selectedWorkout: currentWorkout } = useSelector(state => state.generatedWorkout)
   const savedWorkouts = () => dispatch(getSavedWorkouts(user))
   const setSelectedWorkout = (id) => dispatch(selectedWorkout(id))
 
@@ -24,9 +26,9 @@ const SavedWorkoutsScreen = () => {
     savedWorkouts()
   }, [])
 
-  const toggleModal = (id) => {
+  const toggleModal = (workout) => {
   if (!modalVisible) {
-    setSelectedWorkout(id)
+    setSelectedWorkout(workout)
   } else {
     setSelectedWorkout('')
   }
@@ -36,7 +38,7 @@ const SavedWorkoutsScreen = () => {
   }
 
   const Item = ({item}) => {
-    return <TouchableOpacity style={styles.item} onPress={() => toggleModal(item.id)}>
+    return <TouchableOpacity style={styles.item} onPress={() => toggleModal(item)}>
     <AppText white style={styles.text}>{item.item.name}</AppText>
   </TouchableOpacity>
   }

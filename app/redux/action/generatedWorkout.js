@@ -2,6 +2,7 @@ import * as ACTION from '../constant/actions'
 import { createAction } from 'redux-actions'
 import { firebase } from '../../firebase/config'
 import { snapshotToArray } from '../../helper/snapshotToArray'
+import { updateLevelDetails } from './workout-fitness'
 import moment from 'moment'
 
 const updateGeneratedWorkout = createAction(ACTION.UPDATE_GENERATED_WORKOUT)
@@ -14,15 +15,21 @@ export const setGeneratedWorkout = (wod) => (dispatch, getState) => {
 }
 
 export const getSavedWorkouts = (user) => async (dispatch, getState) => {
-  const saved = await firebase.firestore().collection('saved_workouts').where('user', '==', user).get()
+  const saved = await firebase.firestore().collection('saved_workouts').where('user', '==', 'ChlPOwkH61YV9LELK6eTaavdwQD3').get()
   const snapshot = snapshotToArray(saved)
+
 
   dispatch(updateSavedWorkouts(snapshot))
 }
 
 export const selectedWorkout = (workout) => (dispatch, getState) => {
   dispatch(updatedSelectedWorkout(workout))
-
+  
+  if (workout) {
+    console.log('state', workout.item.level)
+    dispatch(updateLevelDetails(workout.item.level))
+    dispatch(setGeneratedWorkout(workout.item.workout))
+  }
 }
 
 export const deleteWorkout = () => async (dispatch, getState) => {

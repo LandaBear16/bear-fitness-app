@@ -14,7 +14,7 @@ const updateMuscleGroupList = createAction(ACTION.SET_MUSCLE_GROUP)
 const updateSelectedMuscleGroup = createAction(ACTION.SELECTED_MUSCLE_GROUP)
 const updateLevelList = createAction(ACTION.SET_LEVELS)
 const updateSelectedLevel = createAction(ACTION.SELECTED_LEVEL)
-const updateLevelDetails = createAction(ACTION.UPDATE_LEVEL_DETAILS)
+export const updateLevelDetails = createAction(ACTION.UPDATE_LEVEL_DETAILS)
 
 
 

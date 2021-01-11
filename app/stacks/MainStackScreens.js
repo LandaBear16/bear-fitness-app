@@ -9,6 +9,7 @@ import { colours } from '../config/theme'
 import WorkoutGeneratorStack from './WorkoutGeneratorStack'
 import ProfileScreen from '../screens/ProfileScreen'
 import SavedWorkoutsScreen from '../screens/SavedWorkoutsScreen'
+import BeginWorkoutScreen from '../screens/BeginWorkoutScreen'
 
 
 const MainStackScreens = () => {
